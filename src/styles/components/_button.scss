@@ -1,0 +1,12 @@
+@use "../variables";
+
+.el-button {
+    background-color: var(--system-color);
+    color: var(--font-color);
+}
+
+.el-button:hover {
+    background-color: var(--hover-system-color);
+    color: var(--hover-font-color);
+    border-color: var(--hover-system-color);
+}

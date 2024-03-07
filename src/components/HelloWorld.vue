@@ -35,4 +35,7 @@ const count = ref(0)
 .read-the-docs {
   color: #888;
 }
+.card {
+  background-color: var(--system-color);
+}
 </style>
