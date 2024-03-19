@@ -5,8 +5,8 @@ export function getContrastYIQ(hexcolor: string) {
 
     // 将十六进制颜色值转换为 RGB
     var r = parseInt(hexcolor.slice(0, 2), 16);
-    var g = parseInt(hexcolor.slice(2, 2), 16);
-    var b = parseInt(hexcolor.slice(4, 2), 16);
+    var g = parseInt(hexcolor.slice(2, 4), 16);
+    var b = parseInt(hexcolor.slice(4, 6), 16);
 
     // 计算 YIQ 亮度
     var yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;

@@ -1,13 +1,13 @@
 <template>
   <div>
+    
     <input v-model="color" type="color" />
     <el-button>test</el-button>
+    <RouterView />
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
 import { ref, watch } from 'vue'
 import * as colorUtils from '@/util/color'
 
