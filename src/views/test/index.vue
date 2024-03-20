@@ -1,13 +1,19 @@
 <template>
-    {{ count }}
-    <main />
+    <input v-model="color" type="color" />
+    <el-button>test</el-button>
 </template>
 
 <script setup lang="ts">
-import main from './components/main.vue';
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import * as colorUtils from '@/util/color'
 
-const count = ref(0)
+const color = ref('#409EFF')
+watch(color, () => {
+  document.documentElement.style.setProperty('--system-color', color.value)
+  document.documentElement.style.setProperty('--font-color', colorUtils.getContrastYIQ(color.value));
+  document.documentElement.style.setProperty('--hover-system-color', colorUtils.getHoverColor(color.value));
+  document.documentElement.style.setProperty('--hover-font-color', colorUtils.getContrastYIQ(colorUtils.getHoverColor(color.value)));
+})
 </script>
 
 <style scoped lang="scss">

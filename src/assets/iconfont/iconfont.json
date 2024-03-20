@@ -1,0 +1,23 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "131293461",
+      "name": "收起",
+      "font_class": "shouqi",
+      "unicode": "e8b2",
+      "unicode_decimal": 59570
+    },
+    {
+      "icon_id": "131293462",
+      "name": "展开",
+      "font_class": "zhankai",
+      "unicode": "e8b5",
+      "unicode_decimal": 59573
+    }
+  ]
+}
