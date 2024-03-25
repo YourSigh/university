@@ -5,7 +5,7 @@
     </div>
     <div class="main-content">
       <div class="navbar">
-        <Header @scaling=scaling></Header>
+        <Header @scaling=scaling :scalingMenu="scalingMenu"></Header>
       </div>
       <div class="content">
         <RouterView />
@@ -26,15 +26,6 @@ const scaling = () => {
 </script>
 
 <style>
-@font-face {
-  font-family: 'iconfont';  /* Project id 2490805 */
-  src: url('//at.alicdn.com/t/font_2490805_9z5z5z3z5z3.eot');
-  src: url('//at.alicdn.com/t/font_2490805_9z5z5z3z5z3.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_2490805_9z5z5z3z5z3.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_2490805_9z5z5z3z5z3.woff') format('woff'),
-  url('//at.alicdn.com/t/font_2490805_9z5z5z3z5z3.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_2490805_9z5z5z3z5z3.svg#iconfont') format('svg');
-}
 * {
   margin: 0;
   padding: 0;
