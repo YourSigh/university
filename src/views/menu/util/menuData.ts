@@ -5,7 +5,7 @@ export default [
     {
         name: '成绩管理',
         id: 'gradeManage',
-        icon: 'icon-',
+        icon: 'icon-zhankai',
     },
     // 课表管理
     {

@@ -7,4 +7,13 @@ const router = createRouter({
   routes
 })
 
+// 导航守卫
+router.beforeEach((to, from, next) => {
+  if (true || to.path === '/login') {
+    next()
+  } else {
+    next('/login');
+  }
+})
+
 export default router

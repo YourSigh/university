@@ -1,28 +1,41 @@
 <template>
-  <div class="container">
-    <div class="menu">
-      <Menu :scalingMenu="scalingMenu"></Menu>
+  <div id="app">
+    <div class="sign" v-if="showSign">
+      <RouterView />
     </div>
-    <div class="main-content">
-      <div class="navbar">
-        <Header @scaling=scaling :scalingMenu="scalingMenu"></Header>
+    <div class="container" v-else>
+      <div class="menu">
+        <Menu :scalingMenu="scalingMenu"></Menu>
       </div>
-      <div class="content">
-        <RouterView />
+      <div class="main-content">
+        <div class="navbar">
+          <Header @scaling=scaling :scalingMenu="scalingMenu"></Header>
+        </div>
+        <div class="content-outside">
+          <div class="content">
+            <RouterView />
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import { useRoute } from 'vue-router'
 import Menu from '@/views/menu/index.vue'
 import Header from '@/views/header/index.vue'
 const scalingMenu = ref(false);
+const $route = useRoute();
 
 const scaling = () => {
   scalingMenu.value = !scalingMenu.value;
 }
+
+const showSign = computed(() => {
+  return $route.path == '/login';
+})
 </script>
 
 <style>
@@ -30,7 +43,9 @@ const scaling = () => {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  color: var(--font-color);
 }
+
 .container {
   display: flex;
   height: 100vh;
@@ -45,10 +60,20 @@ const scaling = () => {
 
 .navbar {
   height: 50px;
-  background-color: #666;
 }
 
-.content {
+.content-outside {
   overflow-y: auto;
+  height: calc(100vh - 50px);
+  width: 100%;
+  background-color: #eee;
+  padding: 10px;
+
+  .content {
+    border-radius: 8px;
+    height: 100%;
+    overflow: auto;
+    background-color: var(--system-color);
+  }
 }
 </style>

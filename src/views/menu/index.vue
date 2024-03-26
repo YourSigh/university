@@ -7,7 +7,7 @@
         
         <el-menu default-active="2" class="el-menu-vertical-demo" :collapse="scalingMenu" @select="handleSelect">
             <el-menu-item v-for="item in menuData" :key="item.id" :index="item.id">
-                <i :class="item.icon"></i>
+                <i :class="item.icon" class="iconfont"></i>
                 <template #title>{{ item.name }}</template>
             </el-menu-item>
             <el-menu-item index="setting" style="position: absolute; bottom: 0;">
@@ -21,7 +21,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue'
 import menuData from '@/views/menu/util/menuData'
 import {
     Setting,
@@ -38,14 +37,23 @@ const handleSelect = (index:String) => {
 </script>
 
 <style lang="scss" scoped>
+.iconfont::before {
+    width: 24px;
+    height: 18px;
+    margin-right: 5px;
+    font-size: 18px;
+    text-align: center;
+}
 .menu {
     height: 100%;
+    background-color: var(--system-color);
     &-title {
         width: 100%;
         height: 50px;
         display: flex;
         align-items: center;
         justify-content: center;
+        margin-bottom: 10px;
         &-small {
             background-image: url('/logo.png');
             background-size: 100% 100%;
@@ -54,13 +62,25 @@ const handleSelect = (index:String) => {
         }
         &-big {
             text-wrap: nowrap;
+            color: var(--font-color);
         }
     }
     .el-menu {
-        height: calc(100% - 50px);
+        height: calc(100% - 60px);
         position: relative;
+        background-color: var(--system-color);
+        border: none;
+        
         .el-menu-item {
             width: 100%;
+            color: var(--font-color);
+        }
+        .is-active {
+            background-color: var(--hover-system-color);
+            color: var(--hover-font-color);
+        }
+        .el-menu-item:hover {
+            background-color: var(--hover-system-color);
         }
     }
 }

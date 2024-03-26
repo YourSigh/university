@@ -4,12 +4,18 @@
             <i class="iconfont icon-zhankai" v-if="scalingMenu"></i>
             <i class="iconfont icon-shouqi" v-else></i>
         </div>
+        <div class="header-feature">
+            <div class="header-color">
+                <el-color-picker v-model="color"></el-color-picker>
+            </div>
+            <div class="header-person"></div>
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { defineEmits, defineProps } from 'vue'
-
+import * as colorUtils from '@/util/color';
+import { ref, watch } from 'vue';
 defineProps({
     scalingMenu: Boolean,
 })
@@ -19,16 +25,26 @@ const emit = defineEmits(['scaling']);
 const scaling = () => {
     emit('scaling');
 }
+
+const color = ref('#409EFF');
+watch(color, () => {
+    document.documentElement.style.setProperty('--system-color', color.value);
+    document.documentElement.style.setProperty('--font-color', colorUtils.getContrastYIQ(color.value));
+    document.documentElement.style.setProperty('--hover-system-color', colorUtils.getHoverColor(color.value));
+    document.documentElement.style.setProperty('--hover-font-color', colorUtils.getContrastYIQ(colorUtils.getHoverColor(color.value)));
+})
 </script>
 
 <style scoped lang="scss">
 .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    padding: 0 20px;
+    background-color: var(--hover-system-color);
+    color: var(--hover-font-color);
     &-scaling {
-        width: 50px;
-        height: 50px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         cursor: pointer;
     }
 }
