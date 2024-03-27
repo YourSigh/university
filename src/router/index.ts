@@ -9,10 +9,19 @@ const router = createRouter({
 
 // 导航守卫
 router.beforeEach((to, from, next) => {
-  if (true || to.path === '/login') {
-    next()
+  const token = localStorage.getItem('loginToken');
+  if (to.path === '/sign') {
+    if (token) {
+      next({ path: '/' });
+    } else {
+      next();
+    }
   } else {
-    next('/login');
+    if (token) {
+      next();
+    } else {
+      next({ path: '/sign' });
+    }
   }
 })
 

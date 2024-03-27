@@ -6,9 +6,9 @@ interface RouteConfig {
 
 const login: RouteConfig[] = [
     {
-        path: '/login',
-        name: 'login',
-        component: () => import('@/views/login/index.vue')
+        path: '/sign',
+        name: 'sign',
+        component: () => import('@/views/sign/index.vue')
     }
 ];
 

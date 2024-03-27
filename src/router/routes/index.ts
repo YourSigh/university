@@ -1,4 +1,4 @@
-import login from './login';
+import sign from './sign';
 import test from './test';
 
 interface Route {
@@ -15,7 +15,7 @@ const routes: Route[] = [
   }
 ];
 
-routes.push(...login);
+routes.push(...sign);
 routes.push(...test);
 
 export default routes;

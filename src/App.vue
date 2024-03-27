@@ -1,9 +1,9 @@
 <template>
-  <div id="app">
+  <div id="app" v-cloak>
     <div class="sign" v-if="showSign">
       <RouterView />
     </div>
-    <div class="container" v-else>
+    <div class="container" v-else-if="token">
       <div class="menu">
         <Menu :scalingMenu="scalingMenu"></Menu>
       </div>
@@ -29,12 +29,14 @@ import Header from '@/views/header/index.vue'
 const scalingMenu = ref(false);
 const $route = useRoute();
 
+const token = localStorage.getItem('loginToken');
+
 const scaling = () => {
   scalingMenu.value = !scalingMenu.value;
 }
 
 const showSign = computed(() => {
-  return $route.path == '/login';
+  return $route.path == '/sign';
 })
 </script>
 
@@ -44,6 +46,15 @@ const showSign = computed(() => {
   padding: 0;
   box-sizing: border-box;
   color: var(--font-color);
+}
+
+[v-cloak] {
+  background-color: red;
+}
+
+.sign {
+  height: 100vh;
+  width: 100vw;
 }
 
 .container {
