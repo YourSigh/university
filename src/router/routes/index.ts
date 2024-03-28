@@ -1,3 +1,5 @@
+import authority from './authority';
+import error from './error';
 import sign from './sign';
 import test from './test';
 
@@ -15,6 +17,8 @@ const routes: Route[] = [
   }
 ];
 
+routes.push(...authority);
+routes.push(...error);
 routes.push(...sign);
 routes.push(...test);
 

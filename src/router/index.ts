@@ -10,7 +10,10 @@ const router = createRouter({
 // 导航守卫
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('loginToken');
-  if (to.path === '/sign') {
+  // 判断是否存在路由
+  if (to.matched.length === 0) {
+    next({ path: '/error' });
+  } else if (to.path === '/sign') {
     if (token) {
       next({ path: '/' });
     } else {

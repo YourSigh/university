@@ -22,6 +22,7 @@
 
 <script setup lang="ts">
 import menuData from '@/views/menu/util/menuData'
+import router from '@/router';
 import {
     Setting,
 } from '@element-plus/icons-vue'
@@ -32,7 +33,9 @@ defineProps({
 
 const handleSelect = (index:String) => {
     // 根据点击的菜单项的index值跳转到对应的路由
-    console.log(index);
+    router.push({
+        path: '/' + index
+    })
 }
 </script>
 
@@ -49,11 +52,10 @@ const handleSelect = (index:String) => {
     background-color: var(--system-color);
     &-title {
         width: 100%;
-        height: 50px;
+        height: 60px;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 10px;
         &-small {
             background-image: url('/logo.png');
             background-size: 100% 100%;

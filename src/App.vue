@@ -1,5 +1,5 @@
 <template>
-  <div id="app" v-cloak>
+  <div id="app">
     <div class="sign" v-if="showSign">
       <RouterView />
     </div>
@@ -22,14 +22,17 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import Menu from '@/views/menu/index.vue'
 import Header from '@/views/header/index.vue'
 const scalingMenu = ref(false);
 const $route = useRoute();
 
-const token = localStorage.getItem('loginToken');
+const token = ref(localStorage.getItem('loginToken'));
+watch(() => $route.path, () => {
+  token.value = localStorage.getItem('loginToken');
+})
 
 const scaling = () => {
   scalingMenu.value = !scalingMenu.value;
@@ -46,10 +49,6 @@ const showSign = computed(() => {
   padding: 0;
   box-sizing: border-box;
   color: var(--font-color);
-}
-
-[v-cloak] {
-  background-color: red;
 }
 
 .sign {

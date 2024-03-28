@@ -2,14 +2,19 @@
     <div class="meteor-right"></div>
     <div class="meteor-left"></div>
     <div class="sign">
-        <div class="title">欢迎使用大学校园一站式服务平台</div>
-        <div class="content"> 
+        <div class="content-left">
+            <div class="title">欢迎使用大学校园一站式服务平台</div>
+            <loading :size="220"></loading>
+            <img src="/logo.png" alt="">
+        </div>
+        <div class="content-right">
             <el-menu mode="horizontal" class="sign-title" default-active="1" @select="menuSelect">
                 <el-menu-item index="1">登录</el-menu-item>
                 <el-menu-item index="2">注册</el-menu-item>
             </el-menu>
             <div class="sign-content">
-                <login v-if="selectMenu == '1'"/>
+                <login v-if="selectMenu == '1'" />
+                <register v-else />
             </div>
         </div>
     </div>
@@ -18,6 +23,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import login from './components/login.vue';
+import register from './components/register.vue';
 
 const selectMenu = ref('1');
 const menuSelect = (index: string) => {
@@ -29,39 +35,72 @@ const menuSelect = (index: string) => {
 .sign {
     height: 100vh;
     width: 100vw;
-    background-color: var(--system-color);
+    // background-color: var(--system-color);
+    background: linear-gradient(45deg, white, var(--system-color));
+    background-size: 400% 400%;
+    position: relative;
+    animation: gradientBG 15s ease infinite;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
 
-    .title {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 200px;
-        font-size: 24px;
+    .content-left {
+        height: 100%;
+
+        .title {
+            font-size: 40px;
+            font-weight: bold;
+            background: linear-gradient(to right, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #4B0082, #8B00FF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 50px 100px;
+            height: 100px;
+            line-height: 100px;
+        }
+
+        .loading {
+            margin: 0 auto;
+        }
+
+        img {
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            top: 210px;
+            left: 310px;
+        }
     }
 
-    .content {
+    .content-right {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         margin: 0 auto;
-        width: 350px;
-        height: 500px;
-        background-color: var(--hover-system-color);
+        width: 330px;
+        height: 400px;
+        background: linear-gradient(45deg, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #4B0082, #8B00FF);
         border-radius: 10px;
 
         .sign-title {
-            width: 300px;
+            width: 280px;
             margin: 0 auto;
             display: flex;
             justify-content: space-around;
             align-items: center;
             height: 50px;
             border-radius: 8px 8px 0 0;
+            overflow: hidden;
+
+            .el-menu-item {
+                width: 80px;
+            }
         }
+
         .sign-content {
-            width: 300px;
-            height: 400px;
+            width: 280px;
+            height: 300px;
             border-radius: 0 0 8px 8px;
             overflow: hidden;
         }
@@ -105,6 +144,20 @@ const menuSelect = (index: string) => {
     transform-origin: top left;
     animation: meteor-left-move 2s linear forwards;
     z-index: 999;
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 @keyframes meteor-right-move {

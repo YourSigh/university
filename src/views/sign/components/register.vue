@@ -1,14 +1,17 @@
 <template>
-    <div class="login">
+    <div class="register">
         <el-form :model="form" :rules="rules" ref="formRef">
             <el-form-item label="用户名" prop="username">
                 <el-input v-model="form.username" placeholder="请输入用户名"></el-input>
             </el-form-item>
-            <el-form-item label="密码" prop="password">
-                <el-input v-model="form.password" placeholder="请输入密码"></el-input>
+            <el-form-item label="密码" prop="password1">
+                <el-input v-model="form.password1" placeholder="请输入密码"></el-input>
+            </el-form-item>
+            <el-form-item label="重复密码" prop="password2">
+                <el-input v-model="form.password2" placeholder="请再次输入密码"></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="login">登录</el-button>
+                <el-button type="primary" @click="login">注册</el-button>
                 <el-button @click="reset">重置</el-button>
             </el-form-item>
         </el-form>
@@ -17,21 +20,24 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ElForm, ElMessage } from 'element-plus';
-import router from '@/router';
+import { ElForm } from 'element-plus';
 
 const formRef = ref<InstanceType<typeof ElForm> | null>(null);
 
 const form = ref({
     username: '',
-    password: ''
+    password1: '',
+    password2: '',
 })
 
 const rules = {
     username: [
         { required: true, message: '请输入用户名', trigger: 'blur' }
     ],
-    password: [
+    password1: [
+        { required: true, message: '请输入密码', trigger: 'blur' }
+    ],
+    password2: [
         { required: true, message: '请输入密码', trigger: 'blur' }
     ]
 }
@@ -39,11 +45,9 @@ const rules = {
 const login = () => {
     formRef.value?.validate((valid: boolean) => {
         if (valid) {
-            localStorage.setItem('loginToken', '绿桶token测试');
-            ElMessage.success('登录成功');
-            router.push('/');
+            console.log('注册成功')
         } else {
-            ElMessage.error('登录失败');
+            console.log('注册失败')
             return false
         }
     })
@@ -51,12 +55,13 @@ const login = () => {
 
 const reset = () => {
     form.value.username = ''
-    form.value.password = ''
+    form.value.password1 = ''
+    form.value.password2 = ''
 }
 </script>
 
 <style scoped lang="scss">
-.login {
+.register {
     display: flex;
     justify-content: center;
     align-items: center;

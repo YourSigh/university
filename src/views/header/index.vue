@@ -26,12 +26,18 @@ const scaling = () => {
     emit('scaling');
 }
 
-const color = ref('#409EFF');
-watch(color, () => {
+const color = ref(localStorage.getItem('systemColor') || '#409EFF');
+
+const changeColor = () => {
     document.documentElement.style.setProperty('--system-color', color.value);
     document.documentElement.style.setProperty('--font-color', colorUtils.getContrastYIQ(color.value));
     document.documentElement.style.setProperty('--hover-system-color', colorUtils.getHoverColor(color.value));
     document.documentElement.style.setProperty('--hover-font-color', colorUtils.getContrastYIQ(colorUtils.getHoverColor(color.value)));
+}
+changeColor();
+watch(color, () => {
+    localStorage.setItem('systemColor', color.value);
+    changeColor();
 })
 </script>
 
