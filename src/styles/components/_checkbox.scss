@@ -1,0 +1,18 @@
+@use "../variables";
+
+.el-checkbox__input .el-checkbox__inner {
+    border-color: var(--system-color); // 复选框边框颜色
+}
+
+.el-checkbox__input.is-checked .el-checkbox__inner {
+    background-color: var(--system-color); // 选中状态的背景色
+    border-color: var(--system-color); // 选中状态的边框颜色
+}
+
+.el-checkbox__input.is-checked .el-checkbox__label {
+    color: var(--hover-font-color); // 选中状态的文字颜色
+}
+
+.el-checkbox.is-checked .el-checkbox__label {
+    color: var(--system-color); // 选中状态的文字颜色
+}

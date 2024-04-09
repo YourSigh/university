@@ -4,11 +4,11 @@ import routes from './routes'
 // 创建路由实例
 const router = createRouter({
   history: createWebHistory('/'),
-  routes
+  routes,
 })
 
 // 导航守卫
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _from, next) => {
   const token = localStorage.getItem('loginToken');
   // 判断是否存在路由
   if (to.matched.length === 0) {

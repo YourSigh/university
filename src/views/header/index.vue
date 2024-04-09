@@ -1,29 +1,37 @@
 <template>
     <div class="header">
-        <div class="header-scaling" @click="scaling">
-            <i class="iconfont icon-zhankai" v-if="scalingMenu"></i>
-            <i class="iconfont icon-shouqi" v-else></i>
-        </div>
-        <div class="header-feature">
-            <div class="header-color">
-                <el-color-picker v-model="color"></el-color-picker>
+        <div class="left">
+            <div class="header-scaling" @click="scaling">
+                <i class="iconfont icon-zhankai" v-if="scalingMenu"></i>
+                <i class="iconfont icon-shouqi" v-else></i>
             </div>
-            <div class="header-person"></div>
+            <div class="header-title">
+                <div class="header-title-small" v-if="scalingMenu"></div>
+                <div class="header-title-big" v-else>大学校园一站式服务平台</div>
+            </div>
+        </div>
+        <div clsss="right">
+            <div class="header-feature">
+                <div class="header-color">
+                    <el-color-picker v-model="color"></el-color-picker>
+                </div>
+                <div class="header-person"></div>
+            </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import * as colorUtils from '@/util/color';
-import { ref, watch } from 'vue';
-defineProps({
-    scalingMenu: Boolean,
-})
+import { useTagsStore } from '@/store';
+import { computed, ref, watch } from 'vue';
 
-const emit = defineEmits(['scaling']);
+const store = useTagsStore();
+
+const scalingMenu = computed(() => store.collapse);
 
 const scaling = () => {
-    emit('scaling');
+    store.handleCollapse(!scalingMenu.value);
 }
 
 const color = ref(localStorage.getItem('systemColor') || '#409EFF');
@@ -46,12 +54,56 @@ watch(color, () => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 100%;
+    height: 70px;
     padding: 0 20px;
     background-color: var(--hover-system-color);
     color: var(--hover-font-color);
-    &-scaling {
-        cursor: pointer;
+
+    .left {
+        display: flex;
+        align-items: center;
+
+        .header-scaling {
+            cursor: pointer;
+            font-size: 20px;
+            margin-right: 10px;
+        }
+
+        .header-title {
+            display: flex;
+            &-small {
+                background-image: url('/logo.png');
+                background-size: 100% 100%;
+                width: 50px;
+                height: 50px;
+            }
+            &-big {
+                text-wrap: nowrap;
+                color: var(--font-color);
+                font-size: 20px;
+            }
+        }
+    }
+
+    .right {
+        display: flex;
+        align-items: center;
+
+        .header-feature {
+            display: flex;
+            align-items: center;
+
+            .header-color {
+                margin-right: 10px;
+            }
+
+            .header-person {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background-color: #fff;
+            }
+        }
     }
 }
 </style>

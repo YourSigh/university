@@ -1,12 +1,13 @@
 @use "../variables";
 
 .el-button {
-    background-color: var(--system-color);
-    color: var(--font-color);
+    color: var(--font-color); // 按钮文字颜色
+    border-color: var(--system-color); // 按钮边框颜色
+    background-color: var(--system-color); // 按钮背景色
 }
 
 .el-button:hover {
-    background-color: var(--hover-system-color);
-    color: var(--hover-font-color);
-    border-color: var(--hover-system-color);
+    color: var(--hover-font-color); // 按钮hover文字颜色
+    border-color: var(--hover-system-color); // 按钮hover边框颜色
+    background-color: var(--hover-system-color); // 按钮hover背景色
 }

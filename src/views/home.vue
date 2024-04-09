@@ -1,34 +1,48 @@
 <template>
-    <div class="home">
-        <div class="home-content">
-            <div class="home-content-title">Home</div>
-            <div class="home-content-text">欢迎使用大学校园一站式服务平台</div>
+    <div class="about">
+        <v-header />
+        <v-menu />
+        <div class="content-box" :class="{ 'content-collapse': collapse }">
+            <v-tags></v-tags>
+            <div class="content">
+                <router-view v-slot="{ Component }">
+                    <transition name="move" mode="out-in">
+                        <keep-alive :include="tagsList">
+                            <component :is="Component" />
+                        </keep-alive>
+                    </transition>
+                </router-view>
+            </div>
         </div>
     </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
+import { defineComponent, computed } from 'vue';
+import { useTagsStore } from '@/store/index';
+import vHeader from '@/views/header/index.vue';
+import vMenu from '@/views/menu/index.vue';
+import vTags from '@/views/tags/index.vue';
 
+export default defineComponent({
+    components: {
+        vHeader,
+        vMenu,
+        vTags,
+    },
+    setup() {
+        const tagsStore = useTagsStore();
+        const tagsList:any = computed(() =>
+            tagsStore.tagsList.map((item) => item.name)
+        );
+        const collapse = computed(() => tagsStore.collapse);
+        return {
+            tagsList,
+            collapse,
+        };
+    },
+});
 </script>
 
-<style scoped lang="scss">
-.home {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-    .home-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        .home-content-title {
-            font-size: 24px;
-        }
-        .home-content-text {
-            font-size: 16px;
-        }
-    }
-}
+<style scoped>
 </style>
