@@ -5,7 +5,7 @@
                 <i :class="item.icon" class="iconfont"></i>
                 <template #title>{{ item.name }}</template>
             </el-menu-item>
-            <el-menu-item index="setting" style="position: absolute; bottom: 0; background-color: var(--system-color);">
+            <el-menu-item class="setting" index="setting" style="position: absolute; bottom: 10px;">
                 <el-icon>
                     <setting />
                 </el-icon>
@@ -68,6 +68,13 @@ const collapse = computed(() => store.collapse);
         }
 
         .el-menu-item:hover {
+            background-color: var(--hover-system-color);
+        }
+
+        .setting {
+            background-color: var(--system-color);
+        }
+        .setting:hover {
             background-color: var(--hover-system-color);
         }
     }

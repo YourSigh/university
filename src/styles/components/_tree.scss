@@ -1,13 +1,21 @@
 @use "../variables";
 
 .el-tree .el-tree-node__label {
-    color: var(--font-color); // 节点文字颜色
+    color: black; // 节点文字颜色
 }
 
 .el-tree .el-tree-node__content:hover {
     background-color: var(--hover-system-color); // 节点hover背景色
 }
 
+.el-tree .el-tree-node__content:hover .el-tree-node__label {
+    color: var(--hover-font-color);
+}
+
 .el-tree .el-tree-node.is-current .el-tree-node__content {
     background-color: var(--system-color); // 选中节点背景色
+}
+
+.el-tree .el-tree-node.is-current .el-tree-node__label {
+    color: var(--font-color);
 }

@@ -76,7 +76,7 @@ const setTags = (route: RouteLocationNormalizedLoaded) => {
 
 setTags(route);
 
-onBeforeRouteUpdate((to:any) => {
+onBeforeRouteUpdate((to: any) => {
     setTags(to);
 });
 
@@ -86,7 +86,7 @@ const closeAll = () => {
 };
 
 const closeOther = () => {
-    const curItem:any = tagsList.value.filter((item) => item.path === route.fullPath);
+    const curItem: any = tagsList.value.filter((item) => item.path === route.fullPath);
     tagsStore.closeTagsOther(curItem);
 };
 
@@ -125,21 +125,27 @@ const handleTags = (command: string) => {
     height: 23px;
     line-height: 23px;
     border: 1px solid #e9eaec;
-    background: var(--system-color);
+    background: white;
     padding: 0 5px 0 12px;
     vertical-align: middle;
-    color: #666;
+    color: black;
     -webkit-transition: all 0.3s ease-in;
     -moz-transition: all 0.3s ease-in;
     transition: all 0.3s ease-in;
 }
 
 .tags-li:not(.active):hover {
-    background: #f8f8f8;
+    background: var(--hover-system-color);
+    .tags-li-title, .tags-li-icon {
+        color: var(--font-color);
+    }
 }
 
 .tags-li.active {
-    color: #fff;
+    background-color: var(--system-color);
+    .tags-li-title, .tags-li-icon {
+        color: var(--font-color);
+    }
 }
 
 .tags-li-title {
@@ -149,11 +155,13 @@ const handleTags = (command: string) => {
     white-space: nowrap;
     text-overflow: ellipsis;
     margin-right: 5px;
-    color: #666;
+    color: black;
 }
 
-.tags-li.active .tags-li-title {
-    color: #fff;
+.tags-li-icon {
+    display: flex;
+    align-items: center;
+    height: 100%;
 }
 
 .tags-close-box {

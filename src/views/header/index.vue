@@ -6,16 +6,29 @@
                 <i class="iconfont icon-shouqi" v-else></i>
             </div>
             <div class="header-title">
-                <div class="header-title-small" v-if="scalingMenu"></div>
-                <div class="header-title-big" v-else>大学校园一站式服务平台</div>
+                <div class="header-title-small"></div>
+                <div class="header-title-big">大学校园一站式服务平台</div>
             </div>
         </div>
-        <div clsss="right">
-            <div class="header-feature">
-                <div class="header-color">
-                    <el-color-picker v-model="color"></el-color-picker>
-                </div>
-                <div class="header-person"></div>
+        <div class="right">
+            <div class="header-color">
+                <el-color-picker v-model="color"></el-color-picker>
+            </div>
+            <div class="header-person">
+                <div></div>
+                <el-dropdown class="user-name" trigger="click" @command="handleCommand">
+                    <span class="el-dropdown-link">
+                        <div>测试名字</div>
+                        <el-icon><ArrowDown /></el-icon>
+                    </span>
+                    <template #dropdown>
+                        <el-dropdown-menu>
+                            <el-dropdown-item command="setting">设置</el-dropdown-item>
+                            <el-dropdown-item command="user">个人中心</el-dropdown-item>
+                            <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
+                        </el-dropdown-menu>
+                    </template>
+                </el-dropdown>
             </div>
         </div>
     </div>
@@ -47,6 +60,13 @@ watch(color, () => {
     localStorage.setItem('systemColor', color.value);
     changeColor();
 })
+
+const handleCommand = (command: string) => {
+    if (command === 'loginout') {
+        localStorage.removeItem('loginToken');
+        location.href = '/sign';
+    }
+}
 </script>
 
 <style scoped lang="scss">
@@ -62,6 +82,7 @@ watch(color, () => {
     .left {
         display: flex;
         align-items: center;
+        height: 100%;
 
         .header-scaling {
             cursor: pointer;
@@ -71,12 +92,16 @@ watch(color, () => {
 
         .header-title {
             display: flex;
+            align-items: center;
+
             &-small {
                 background-image: url('/logo.png');
                 background-size: 100% 100%;
                 width: 50px;
                 height: 50px;
+                margin-right: 10px;
             }
+
             &-big {
                 text-wrap: nowrap;
                 color: var(--font-color);
@@ -86,22 +111,29 @@ watch(color, () => {
     }
 
     .right {
+        height: 100%;
         display: flex;
         align-items: center;
+        justify-content: center;
+        .header-color {
+            margin-right: 10px;
+        }
 
-        .header-feature {
+        .header-person {
             display: flex;
             align-items: center;
+            cursor: pointer;
 
-            .header-color {
+            .user-name {
                 margin-right: 10px;
-            }
-
-            .header-person {
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                background-color: #fff;
+                color: var(--font-color);
+                .el-dropdown-link {
+                    display: flex;
+                    align-items: center;
+                    .el-icon {
+                        margin-left: 5px;
+                    }
+                }
             }
         }
     }

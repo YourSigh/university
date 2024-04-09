@@ -1,6 +1,6 @@
 <template>
-    <div class="meteor-right"></div>
-    <div class="meteor-left"></div>
+    <!-- <div class="meteor-right"></div>
+    <div class="meteor-left"></div> -->
     <div class="sign">
         <div class="content-left">
             <div class="title">欢迎使用大学校园一站式服务平台</div>
@@ -36,7 +36,7 @@ const menuSelect = (index: string) => {
     height: 100vh;
     width: 100vw;
     // background-color: var(--system-color);
-    background: linear-gradient(45deg, white, var(--system-color));
+    background: linear-gradient(45deg, pink, var(--system-color));
     background-size: 400% 400%;
     position: relative;
     animation: gradientBG 15s ease infinite;
@@ -80,8 +80,9 @@ const menuSelect = (index: string) => {
         margin: 0 auto;
         width: 330px;
         height: 400px;
-        background: linear-gradient(45deg, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #4B0082, #8B00FF);
+        // background: linear-gradient(45deg, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #4B0082, #8B00FF);
         border-radius: 10px;
+        overflow: hidden;
 
         .sign-title {
             width: 280px;
@@ -102,8 +103,20 @@ const menuSelect = (index: string) => {
             width: 280px;
             height: 300px;
             border-radius: 0 0 8px 8px;
+            z-index: 1;
             overflow: hidden;
         }
+    }
+
+    .content-right::before {
+        content: '';
+        position: absolute;
+        width: 330px;
+        height: 400px;
+        border-radius: 10px;
+        // animation: circleRound 3s ease infinite;
+        background: linear-gradient(45deg, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #4B0082, #8B00FF);
+        
     }
 }
 
@@ -181,6 +194,16 @@ const menuSelect = (index: string) => {
     to {
         top: 100vh;
         left: 100vw;
+    }
+}
+
+@keyframes circleRound {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
     }
 }
 </style>
