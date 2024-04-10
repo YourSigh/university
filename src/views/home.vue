@@ -45,4 +45,12 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.content {
+    margin: 10px;
+    padding: 30px;
+    border-radius: 5px;
+    height: calc(100% - 20px);
+    overflow: auto;
+    background-color: white;
+}
 </style>

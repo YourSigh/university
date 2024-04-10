@@ -1,19 +1,23 @@
 <template>
     <div class="authority">
+        <loading :loading="isloading"/>
         <div class="title">权限管理</div>
         <div class="content">
             <div class="left">
-                <el-tree
+                <div class="title">角色：</div>
+                <el-tree-select
+                    v-model="checkedData"
                     :data="data"
                     :props="defaultProps"
-                    @node-click="handleNodeClick"
-                    ref="tree"
-                    :default-expanded-keys="['0-0-0']"
-                    :expand-on-click-node="false"
-                ></el-tree>
+                    check-strictly
+                    placeholder="请选择"
+                    style="width: 100%;"
+                    @change="changeRole"
+                ></el-tree-select>
             </div>
             <div class="right">
-                <el-checkbox-group v-model="checkedData">
+                <div class="title">权限：</div>
+                <el-checkbox-group v-model="checkedAuth">
                     <el-checkbox v-for="item in authData" :value="item.id" :key="item.id">{{ item.name }}</el-checkbox>
                 </el-checkbox-group>
             </div>
@@ -29,33 +33,35 @@ import { ref } from 'vue'
 import auth from './util/auth'
 
 const authData = ref(auth)
+const checkedAuth = ref([])
 const checkedData = ref([])
+const isloading = ref(false)
 
 const data = ref([
     {
-        id: 1,
+        value: 1,
         label: '学生',
         children: [
             {
-                id: 3,
+                value: 3,
                 label: '张三',
             },
             {
-                id: 4,
+                value: 4,
                 label: '李四'
             }
         ]
     },
     {
-        id: 2,
+        value: 2,
         label: '教师',
         children: [
             {
-                id: 5,
+                value: 5,
                 label: '王老师'
             },
             {
-                id: 6,
+                value: 6,
                 label: '李老师'
             }
         ]
@@ -67,8 +73,12 @@ const defaultProps = {
     label: 'label'
 }
 
-const handleNodeClick = (data: any) => {
-    console.log(data)
+const changeRole = (value: any) => {
+    isloading.value = true;
+    setTimeout(() => {
+        checkedData.value = value;
+        isloading.value = false;
+    }, 1000)
 }
 
 </script>
@@ -88,13 +98,24 @@ const handleNodeClick = (data: any) => {
             width: 300px;
             height: 500px;
             overflow: auto;
-            margin-left: 0px;
-
+            border-right: 1px solid #ccc;
+            padding: 0 20px;
+            .title {
+                font-size: 16px;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
         }
         .right {
             flex: 1;
             height: 500px;
             overflow: auto;
+            padding: 0 20px;
+            .title {
+                font-size: 16px;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
         }
     }
 }

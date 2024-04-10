@@ -1,5 +1,5 @@
 <template>
-    <div class="loading" :style="{width: size + 'px', height: size + 'px'}">
+    <div class="loading" :style="{width: size + 'px', height: size + 'px', position: isLoading? 'absolute': 'relative'}" v-if="loading">
         <div class="round" v-for="i in 7" :key="i" :style="{transformOrigin: '50% ' + size / 2 + 'px'}"></div>
     </div>
 </template>
@@ -9,7 +9,15 @@ defineProps({
     size: {
         type: Number,
         default: 150
-    }
+    },
+    loading: {
+        type: Boolean,
+        default: true
+    },
+    isLoading: {
+        type: Boolean,
+        default: true
+    },
 })
 </script>
 

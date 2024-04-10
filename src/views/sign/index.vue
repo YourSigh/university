@@ -36,7 +36,7 @@ const menuSelect = (index: string) => {
     height: 100vh;
     width: 100vw;
     // background-color: var(--system-color);
-    background: linear-gradient(45deg, pink, var(--system-color));
+    background: linear-gradient(45deg, pink, #409eff);
     background-size: 400% 400%;
     position: relative;
     animation: gradientBG 15s ease infinite;
@@ -83,6 +83,7 @@ const menuSelect = (index: string) => {
         // background: linear-gradient(45deg, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #4B0082, #8B00FF);
         border-radius: 10px;
         overflow: hidden;
+        position: relative;
 
         .sign-title {
             width: 280px;
@@ -93,6 +94,9 @@ const menuSelect = (index: string) => {
             height: 50px;
             border-radius: 8px 8px 0 0;
             overflow: hidden;
+            position: absolute;
+            z-index: 1;
+            top: 25px;
 
             .el-menu-item {
                 width: 80px;
@@ -105,18 +109,21 @@ const menuSelect = (index: string) => {
             border-radius: 0 0 8px 8px;
             z-index: 1;
             overflow: hidden;
+            position: absolute;
+            top: 75px;
         }
     }
 
     .content-right::before {
         content: '';
-        position: absolute;
-        width: 330px;
-        height: 400px;
+        width: 600px;
+        height: 600px;
         border-radius: 10px;
-        // animation: circleRound 3s ease infinite;
-        background: linear-gradient(45deg, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #4B0082, #8B00FF);
-        
+        margin: -100px;
+        animation: circleRound 3s linear infinite;
+        // background-image: radial-gradient(circle at center, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #4B0082, #8B00FF);
+        // background: linear-gradient(45deg, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #4B0082, #8B00FF);
+        background: linear-gradient(45deg, pink, #409eff);
     }
 }
 

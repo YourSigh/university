@@ -69,7 +69,7 @@ const reset = () => {
     width: 100%;
     background-color: #fff;
 
-    ::v-deep .el-form {
+    :v-deep .el-form {
         .el-form-item {
             margin-bottom: 20px;
             display: flex;
