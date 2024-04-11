@@ -1,5 +1,5 @@
 <template>
-    <div class="loading" :style="{width: size + 'px', height: size + 'px', position: isLoading? 'absolute': 'relative'}" v-if="loading">
+    <div class="ring" :style="{width: size + 'px', height: size + 'px'}">
         <div class="round" v-for="i in 7" :key="i" :style="{transformOrigin: '50% ' + size / 2 + 'px'}"></div>
     </div>
 </template>
@@ -10,19 +10,11 @@ defineProps({
         type: Number,
         default: 150
     },
-    loading: {
-        type: Boolean,
-        default: true
-    },
-    isLoading: {
-        type: Boolean,
-        default: false
-    },
 })
 </script>
 
 <style scoped lang="scss">
-.loading {
+.ring {
     width: 150px;
     height: 150px;
     position: relative;
@@ -34,7 +26,7 @@ defineProps({
     height: 20px;
     border-radius: 50%;
     background-color: red;
-    animation: circleRound 3s ease infinite;
+    animation: ringRound 3s ease infinite;
     transform-origin: 50% 75px;
     left: 50%;
 }
@@ -91,7 +83,7 @@ defineProps({
     z-index: 1;
 }
 
-@keyframes circleRound {
+@keyframes ringRound {
     to {
         transform: rotate(1turn);
     }

@@ -113,14 +113,16 @@ const handleTags = (command: string) => {
     box-sizing: border-box;
     width: 100%;
     height: 100%;
+    padding-left: 10px;
 }
 
 .tags-li {
     float: left;
-    margin: 3px 5px 2px 3px;
-    border-radius: 3px;
+    position: relative;
+    margin: 6px 15px 0 15px;
+    border-radius: 13px 13px 0 0;
     font-size: 12px;
-    overflow: hidden;
+    list-style-type: none;
     cursor: pointer;
     height: 23px;
     line-height: 23px;
@@ -134,16 +136,42 @@ const handleTags = (command: string) => {
     transition: all 0.3s ease-in;
 }
 
+.tags-li::before, .tags-li::after {
+    position: absolute;
+    bottom: 0;
+    content: '';
+    width: 46px;
+    height: 100%;
+    border-radius: 100%;
+    box-shadow: 0 0 20px red;
+    /*使用box-shadow不影响尺寸*/
+    transition: .2s;
+}
+
+.tags-li::before {
+    left: -46px;
+    clip-path: inset(50% 0 0 50%);
+}
+
+.tags-li::after {
+    right: -46px;
+    clip-path: inset(50% 50% 0 0);
+}
+
 .tags-li:not(.active):hover {
     background: var(--hover-system-color);
-    .tags-li-title, .tags-li-icon {
+
+    .tags-li-title,
+    .tags-li-icon {
         color: var(--font-color);
     }
 }
 
 .tags-li.active {
     background-color: var(--system-color);
-    .tags-li-title, .tags-li-icon {
+
+    .tags-li-title,
+    .tags-li-icon {
         color: var(--font-color);
     }
 }
@@ -169,12 +197,14 @@ const handleTags = (command: string) => {
     right: 0;
     top: 0;
     box-sizing: border-box;
-    padding-top: 1px;
     text-align: center;
     width: 110px;
     height: 30px;
     background: #fff;
     box-shadow: -3px 0 15px 3px rgba(0, 0, 0, 0.1);
     z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>

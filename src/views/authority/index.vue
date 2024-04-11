@@ -94,9 +94,10 @@ const changeRole = (value: any) => {
     }
     .content {
         display: flex;
+        height: calc(100% - 80px);
         .left {
-            width: 300px;
-            height: 500px;
+            width: calc(50% - 40px);
+            height: 100%;
             overflow: auto;
             border-right: 1px solid #ccc;
             padding: 0 20px;
@@ -108,7 +109,8 @@ const changeRole = (value: any) => {
         }
         .right {
             flex: 1;
-            height: 500px;
+            width: calc(50% - 40px);
+            height: 100%;
             overflow: auto;
             padding: 0 20px;
             .title {
@@ -117,6 +119,12 @@ const changeRole = (value: any) => {
                 margin-bottom: 10px;
             }
         }
+    }
+    .footer {
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }
 </style>

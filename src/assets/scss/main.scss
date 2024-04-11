@@ -5,7 +5,7 @@
 
 html,
 body,
-#app{
+#app {
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -29,4 +29,15 @@ body,
 
 a {
     text-decoration: none;
+}
+
+.move-enter-active,
+.move-leave-active {
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.move-enter,
+.move-leave-to {
+    opacity: 0;
+    transform: translateY(20px);
 }

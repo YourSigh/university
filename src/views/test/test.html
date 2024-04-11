@@ -1,90 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>快速彩虹开屏特效</title>
-<style>
-  body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow: hidden;
-  }
-
-  .splash-screen {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, #ffaadd, #55ffff);
-    background-size: 400% 400%;
-    position: relative;
-    animation: gradientBG 15s ease infinite;
-  }
-
-  @keyframes gradientBG {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
-
-  .title {
-    font-size: 2em;
-    color: white;
-    opacity: 0;
-    animation: fadeInOut 3s ease-in-out forwards;
-  }
-
-  @keyframes fadeInOut {
-    0%, 100% {
-      opacity: 0;
-    }
-    50% {
-      opacity: 1;
-    }
-  }
-  @keyframes spin {
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-
-  .circle {
-    position: relative;
-    width: 100px; /* 圆环的外径 */
-    height: 100px; /* 圆环的外径 */
-    border-radius: 50%; /* 创建圆形 */
-    background-color: transparent; /* 圆环中间透明 */
-  }
-
-  .circle::before {
-    content: "";
-    position: absolute;
-    top: 5px; /* 圆环的厚度 */
-    bottom: 5px; /* 圆环的厚度 */
-    right: 5px; /* 圆环的厚度 */
-    left: 5px; /* 圆环的厚度 */
-    background: linear-gradient(45deg, red, yellow, green, blue); /* 渐变颜色 */
-    border-radius: 50%; /* 创建圆形 */
-    z-index: -1;
-    animation: spin 2s linear infinite; /* 应用旋转动画 */
-  }
-</style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .box{
+            width:612px;
+            border:2px red solid;
+            margin: 0 auto;
+        }
+        ul{
+            overflow: hidden;
+        }
+        li{
+            list-style: none;
+            background:red;
+            float: left;
+            width: 200px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border: 2px solid orange;
+        }
+        li.on{
+            background: green;
+            border-bottom: none;/*让该卡头的下边框为“none”*/
+            height: 32px;/*卡头的内容高度设置为：原内容的高度+卡头下边框的宽度。*/
+        }
+        .box div{
+            background:green;
+            display: none;
+            width:612px;
+            height:200px;
+            font-size: 30px;
+            border-top: none;/*在开始写样式时，就把展示区上边框设置成“none”*/
+        }
+        .box div.on{
+            display: block;
+        }
+    </style>
 </head>
 <body>
-
-<div class="splash-screen">
-  <h1 class="title">欢迎光临！</h1>
-  <div class="circle"></div>
+<div class="box" id="box">
+    <ul>
+        <li>中国</li>
+        <li class="on">日本</li>
+        <li>韩国</li>
+    </ul>
+    <div>中国是老大</div>
+    <div class="on">日本是老二</div>
+    <div>韩国是老三</div>
 </div>
-
+<script>
+    var box = document.getElementById('box');
+    var ul = document.getElementsByTagName('ul')[0];
+    var lis = box.getElementsByTagName('li');
+    var divs = box.getElementsByTagName('div');
+    for(var i=0;i<lis.length;i++){
+        lis[i].qiancheng = i;
+        lis[i].onmouseover = function(){
+            for(var j=0;j<lis.length;j++){
+                lis[j].className = '';
+                divs[j].className = '';
+            }
+            this.className = 'on';
+            divs[this.qiancheng].className = 'on';
+        }
+    }
+    ul.οnmοuseοut=function () {
+        for(var j=0;j<lis.length;j++){
+            if(j===1){
+                lis[j].className = 'on';
+                divs[lis[j].qiancheng].className = 'on';
+                continue;
+            }
+            lis[j].className = '';
+            divs[j].className = '';
+        }
+    }
+</script>
 </body>
 </html>

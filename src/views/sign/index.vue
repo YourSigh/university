@@ -4,7 +4,7 @@
     <div class="sign">
         <div class="content-left">
             <div class="title">欢迎使用大学校园一站式服务平台</div>
-            <loading :size="220"></loading>
+            <ring :size="220"></ring>
             <img src="/logo.png" alt="">
         </div>
         <div class="content-right">
@@ -59,7 +59,7 @@ const menuSelect = (index: string) => {
             line-height: 100px;
         }
 
-        .loading {
+        .ring {
             margin: 0 auto;
         }
 
@@ -79,6 +79,7 @@ const menuSelect = (index: string) => {
         align-items: center;
         margin: 0 auto;
         width: 330px;
+        min-width: 330px;
         height: 400px;
         // background: linear-gradient(45deg, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #4B0082, #8B00FF);
         border-radius: 10px;

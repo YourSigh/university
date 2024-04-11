@@ -6,7 +6,7 @@
             <v-tags></v-tags>
             <div class="content">
                 <router-view v-slot="{ Component }">
-                    <transition name="move" mode="out-in">
+                    <transition name="move" mode="out-in" appear>
                         <keep-alive :include="tagsList">
                             <component :is="Component" />
                         </keep-alive>
@@ -49,7 +49,7 @@ export default defineComponent({
     margin: 10px;
     padding: 30px;
     border-radius: 5px;
-    height: calc(100% - 20px);
+    height: calc(100% - 80px);
     overflow: auto;
     background-color: white;
 }
