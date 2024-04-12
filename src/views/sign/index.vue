@@ -78,8 +78,8 @@ const menuSelect = (index: string) => {
         justify-content: center;
         align-items: center;
         margin: 0 auto;
-        width: 330px;
-        min-width: 330px;
+        width: 500px;
+        // min-width: 300px;
         height: 400px;
         // background: linear-gradient(45deg, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #4B0082, #8B00FF);
         border-radius: 10px;
@@ -87,7 +87,7 @@ const menuSelect = (index: string) => {
         position: relative;
 
         .sign-title {
-            width: 280px;
+            width: 400px;
             margin: 0 auto;
             display: flex;
             justify-content: space-around;
@@ -105,7 +105,7 @@ const menuSelect = (index: string) => {
         }
 
         .sign-content {
-            width: 280px;
+            width: 400px;
             height: 300px;
             border-radius: 0 0 8px 8px;
             z-index: 1;
@@ -117,10 +117,10 @@ const menuSelect = (index: string) => {
 
     .content-right::before {
         content: '';
-        width: 600px;
-        height: 600px;
+        width: 800px;
+        height: 800px;
         border-radius: 10px;
-        margin: -100px;
+        margin: -400px;
         animation: circleRound 3s linear infinite;
         // background-image: radial-gradient(circle at center, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #4B0082, #8B00FF);
         // background: linear-gradient(45deg, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #4B0082, #8B00FF);
