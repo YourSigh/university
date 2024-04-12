@@ -11,7 +11,7 @@ const routes: any = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('@/views/Home.vue'),
+    component: () => import('@/views/home.vue'),
     children: [
       {
         path: "/dashboard",
