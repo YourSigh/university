@@ -1,5 +1,5 @@
 <template>
-    <div class="loading" :style="{width: size + 'px', height: size + 'px', position: isLoading? 'absolute': 'relative'}" v-if="loading">
+    <div class="loading" :style="{width: size + 'px', height: size + 'px'}" v-if="loading">
         <div class="round" v-for="i in 7" :key="i" :style="{transformOrigin: '50% ' + size / 2 + 'px'}"></div>
     </div>
 </template>
@@ -25,7 +25,7 @@ defineProps({
 .loading {
     width: 150px;
     height: 150px;
-    position: relative;
+    position: absolute;
 }
 
 .round {

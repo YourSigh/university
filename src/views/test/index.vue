@@ -1,4 +1,5 @@
 <template>
+    <div v-color="'red'" v-my-loading="true">测试</div>
     <input v-model="color" type="color" />
     <el-button>test</el-button>
 </template>
