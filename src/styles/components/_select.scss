@@ -1,5 +1,16 @@
 .el-select-dropdown {
+    .el-tree-node__content:has(.is-selected)+.el-tree-node__children {
+        .el-tree-node .el-tree-node__content .el-select-dropdown__item {
+            color: var(--font-color);
+        }
+    }
     .el-select-dropdown__item.is-selected {
         color: var(--font-color);
+    }
+
+    .el-tree-node__content:hover {
+        .el-select-dropdown__item {
+            color: var(--font-color);
+        }
     }
 }

@@ -119,43 +119,54 @@ const handleTags = (command: string) => {
 .tags-li {
     float: left;
     position: relative;
-    margin: 6px 15px 0 15px;
-    border-radius: 13px 13px 0 0;
+    margin: 7px 15px 0 15px;
+    border-radius: 8px 8px 0 0;
     font-size: 12px;
     list-style-type: none;
     cursor: pointer;
     height: 23px;
     line-height: 23px;
-    border: 1px solid #e9eaec;
-    background: white;
     padding: 0 5px 0 12px;
     vertical-align: middle;
-    color: black;
-    -webkit-transition: all 0.3s ease-in;
-    -moz-transition: all 0.3s ease-in;
-    transition: all 0.3s ease-in;
 }
 
 .tags-li::before, .tags-li::after {
     position: absolute;
     bottom: 0;
     content: '';
-    width: 46px;
-    height: 100%;
-    border-radius: 100%;
-    box-shadow: 0 0 20px red;
-    /*使用box-shadow不影响尺寸*/
-    transition: .2s;
+    width: 8px;
+    height: 8px;
 }
 
 .tags-li::before {
-    left: -46px;
-    clip-path: inset(50% 0 0 50%);
+    left: -8px;
+    background: radial-gradient(circle at left top, transparent 8px, white 0);
 }
 
 .tags-li::after {
-    right: -46px;
-    clip-path: inset(50% 50% 0 0);
+    right: -8px;
+    background: radial-gradient(circle at right top, transparent 8px, white 0);
+}
+
+.tags-li:hover::before {
+    left: -8px;
+    background: radial-gradient(circle at left top, transparent 8px, var(--hover-system-color) 0);
+}
+
+.tags-li:hover::after {
+    right: -8px;
+    background: radial-gradient(circle at right top, transparent 8px, var(--hover-system-color) 0);
+    transition: 1s;
+}
+
+.active::before {
+    left: -8px;
+    background: radial-gradient(circle at left top, transparent 8px, var(--system-color) 0);
+}
+
+.active::after {
+    right: -8px;
+    background: radial-gradient(circle at right top, transparent 8px, var(--system-color) 0);
 }
 
 .tags-li:not(.active):hover {

@@ -7,10 +7,9 @@
             <ring :size="220"></ring>
             <img src="/logo.png" alt="">
             <div class="saturn">
-            <span class="rings"></span>
+                <span class="rings"></span>
+            </div>
         </div>
-        </div>
-        
 
         <div class="content-right">
             <el-menu mode="horizontal" class="sign-title" default-active="1" @select="menuSelect">
@@ -83,8 +82,7 @@ const menuSelect = (index: string) => {
         justify-content: center;
         align-items: center;
         margin: 0 auto;
-        width: 500px;
-        // min-width: 300px;
+        min-width: 350px;
         height: 400px;
         // background: linear-gradient(45deg, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #4B0082, #8B00FF);
         border-radius: 10px;
@@ -92,7 +90,7 @@ const menuSelect = (index: string) => {
         position: relative;
 
         .sign-title {
-            width: 400px;
+            width: 300px;
             margin: 0 auto;
             display: flex;
             justify-content: space-around;
@@ -110,7 +108,7 @@ const menuSelect = (index: string) => {
         }
 
         .sign-content {
-            width: 400px;
+            width: 300px;
             height: 300px;
             border-radius: 0 0 8px 8px;
             z-index: 1;
@@ -322,6 +320,7 @@ const menuSelect = (index: string) => {
     from {
         transform: rotateX(75deg) rotateZ(0deg);
     }
+
     to {
         transform: rotateX(75deg) rotateZ(360deg);
     }
@@ -331,6 +330,7 @@ const menuSelect = (index: string) => {
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(360deg);
     }
