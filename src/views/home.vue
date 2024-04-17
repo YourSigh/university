@@ -50,7 +50,11 @@ export default defineComponent({
     padding: 30px;
     border-radius: 5px;
     height: calc(100% - 80px);
-    overflow: auto;
     background-color: white;
+    div {
+        height: 100%;
+        width: 100%;
+        overflow: auto;
+    }
 }
 </style>

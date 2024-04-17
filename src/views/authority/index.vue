@@ -94,7 +94,7 @@ const changeRole = (value: any) => {
     }
     .content {
         display: flex;
-        height: calc(100% - 80px);
+        height: calc(100% - 120px);
         .left {
             width: calc(50% - 40px);
             height: 100%;
