@@ -8,7 +8,7 @@
                 <classDetail :isShowClassDetail="isShowClassDetail"></classDetail>
             </div>
             <div class="right">
-                <div class="right-title">添加课程</div>
+                <addClass :times="times" :clickNode="clickNode"></addClass>
             </div>
         </div>
     </div>
@@ -20,6 +20,7 @@ import * as time from './util/time'
 import * as classInterface from './util/interface'
 import classComponent from './components/class.vue'
 import classDetail from './components/classDetail.vue'
+import addClass from './components/addClass.vue'
 
 const isSummer = computed(() => {
     const now = new Date()
@@ -73,11 +74,6 @@ const changeClassDetail = (isShow: boolean, i:number, j:number) => {
 
         .right {
             padding: 0 20px;
-            .right-title {
-                font-size: 16px;
-                font-weight: bold;
-                margin-bottom: 20px;
-            }
         }
     }
 }

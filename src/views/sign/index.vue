@@ -6,9 +6,9 @@
             <div class="title">欢迎使用大学校园一站式服务平台</div>
             <ring :size="220"></ring>
             <img src="/logo.png" alt="">
-            <div class="saturn">
+            <!-- <div class="saturn">
                 <span class="rings"></span>
-            </div>
+            </div> -->
         </div>
 
         <div class="content-right">

@@ -1,9 +1,20 @@
 .el-select-dropdown {
+    .el-select-dropdown__item:hover {
+        background-color: var(--hover-system-color);
+        color: var(--hover-font-color);
+    }
+
+    .el-select-dropdown__item.is-selected {
+        background-color: var(--system-color);
+        color: var(--font-color);
+    }
+
     .el-tree-node__content:has(.is-selected)+.el-tree-node__children {
         .el-tree-node .el-tree-node__content .el-select-dropdown__item {
             color: var(--font-color);
         }
     }
+
     .el-select-dropdown__item.is-selected {
         color: var(--font-color);
     }

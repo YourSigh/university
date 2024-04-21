@@ -6,7 +6,7 @@
                 <i class="iconfont icon-shouqi" v-else></i>
             </div>
             <div class="header-title">
-                <div class="header-title-small"></div>
+                <img src="/logo.png" alt="" class="header-title-small">
                 <div class="header-title-big">大学校园一站式服务平台</div>
             </div>
         </div>
@@ -93,10 +93,11 @@ const handleCommand = (command: string) => {
         .header-title {
             display: flex;
             align-items: center;
+            position: relative;
 
             &-small {
-                background-image: url('/logo.png');
-                background-size: 100% 100%;
+                background-color: white;
+                border-radius: 50%;
                 width: 50px;
                 height: 50px;
                 margin-right: 10px;

@@ -49,12 +49,10 @@ const emit = defineEmits<{
 
 const openClassDetail = (i: number, j: number) => {
     emit('changeClassDetail', true, i, j)
-    console.log('openClassDetail', i, j)
 }
 
 const handleNullClick = (i: number, j: number) => {
     emit('changeClassDetail', false, i, j)
-    console.log('handleNullClick', i, j)
 }
 </script>
 
