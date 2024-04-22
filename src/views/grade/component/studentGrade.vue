@@ -39,12 +39,12 @@ const semesterList = ['全部', '1', '2', '3']
 const tableData = ref([
     { name: '语文', credit: 2, grade: 90, gradePoint: 4, teacher: '张三' },
     { name: '数学', credit: 3, grade: 80, gradePoint: 3, teacher: '李四' },
-    { name: '英语', credit: 4, grade: 70, gradePoint: 2, teacher: '王五' },
+    { name: '英语', credit: 4, grade: 45, gradePoint: 2, teacher: '王五' },
     { name: '物理', credit: 3, grade: 60, gradePoint: 1, teacher: '赵六' },
-    { name: '化学', credit: 2, grade: 50, gradePoint: 0, teacher: '孙七' }
+    { name: '化学', credit: 2, grade: 80, gradePoint: 0, teacher: '孙七' }
 ])
 
-const rowClassName = ({ row, rowIndex }) => {
+const rowClassName = ({ row }: { row: any; }) => {
     if (row.grade < 60) {
         return 'low-score-row';
     }

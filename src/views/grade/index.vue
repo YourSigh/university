@@ -30,9 +30,5 @@ const userType = ref('student')
         font-weight: bold;
         margin-bottom: 20px;
     }
-
-    .content {
-        
-    }
 }
 </style>
