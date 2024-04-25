@@ -23,8 +23,7 @@
                     </span>
                     <template #dropdown>
                         <el-dropdown-menu>
-                            <el-dropdown-item command="setting">设置</el-dropdown-item>
-                            <el-dropdown-item command="user">个人中心</el-dropdown-item>
+                            <el-dropdown-item command="setting">个人中心</el-dropdown-item>
                             <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
                         </el-dropdown-menu>
                     </template>
@@ -38,6 +37,9 @@
 import * as colorUtils from '@/util/color';
 import { useTagsStore } from '@/store';
 import { computed, ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const store = useTagsStore();
 
@@ -65,6 +67,8 @@ const handleCommand = (command: string) => {
     if (command === 'loginout') {
         localStorage.removeItem('loginToken');
         location.href = '/sign';
+    } else if (command == 'setting') {
+        router.push('/setting');
     }
 }
 </script>

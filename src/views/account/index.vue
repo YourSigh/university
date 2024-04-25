@@ -40,7 +40,7 @@ const tableData = ref([
 const currentPage = ref(1)
 const pageSize = ref(10)
 
-const handleDelete = (index: number, row: any) => {
+const handleDelete = (index: number, _row: any) => {
     tableData.value.splice(index, 1)
 }
 

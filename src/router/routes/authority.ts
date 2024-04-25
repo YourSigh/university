@@ -91,6 +91,15 @@ const authority: RouteConfig[] = [
             title: '账号管理'
         }
     },
+    // 设置
+    {
+        path: '/setting',
+        name: 'Setting',
+        component: () => import('@/views/setting/index.vue'),
+        meta: {
+            title: '设置'
+        }
+    }
 ];
 
 export default authority;

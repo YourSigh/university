@@ -5,10 +5,10 @@
                 <el-input v-model="form.username" placeholder="请输入用户名"></el-input>
             </el-form-item>
             <el-form-item label="密码" prop="password1">
-                <el-input v-model="form.password1" placeholder="请输入密码"></el-input>
+                <el-input v-model="form.password1" placeholder="请输入密码" type="password" show-password></el-input>
             </el-form-item>
             <el-form-item label="重复密码" prop="password2">
-                <el-input v-model="form.password2" placeholder="请再次输入密码"></el-input>
+                <el-input v-model="form.password2" placeholder="请再次输入密码" type="password" show-password></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="login">注册</el-button>
