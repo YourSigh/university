@@ -38,7 +38,7 @@
 <script setup lang="ts">
 import * as classInterface from '../util/interface'
 
-const props = defineProps<{
+defineProps<{
     times: Array<{ start: string, end: string }>,
     schedule: Array<Array<classInterface.ClassScheduleItem>>,
 }>()
