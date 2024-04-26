@@ -9,6 +9,11 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import * as colorUtils from '@/util/color'
+import * as userApi from '@/api/user'
+
+userApi.getUser({}).then(res => {
+  console.log(res)
+})
 
 const color = ref('#409EFF')
 watch(color, () => {

@@ -19,12 +19,17 @@
 import menuData from '@/views/menu/util/menuData'
 import { computed } from 'vue'
 import router from '@/router';
-import { useTagsStore } from '@/store/index';
+import { useTagsStore, useUserStore } from '@/store/index';
 import {
     Setting,
 } from '@element-plus/icons-vue';
+import { getUserAuthority } from '@/api/user';
 
 const store = useTagsStore();
+const userStore = useUserStore();
+getUserAuthority({uid: userStore.userInfo.uid}).then(res => {
+    console.log(res);
+})
 
 const onRoutes = computed(() => router.currentRoute.value.path);
 const collapse = computed(() => store.collapse);

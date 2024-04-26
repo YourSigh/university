@@ -20,9 +20,14 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ElForm } from 'element-plus';
+import { ElForm, ElMessage } from 'element-plus';
+import { register } from '@/api/user';
+import { useUserStore } from '@/store';
+import router from '@/router';
 
 const formRef = ref<InstanceType<typeof ElForm> | null>(null);
+
+const userStore = useUserStore();
 
 const form = ref({
     username: '',
@@ -45,9 +50,31 @@ const rules = {
 const login = () => {
     formRef.value?.validate((valid: boolean) => {
         if (valid) {
-            console.log('注册成功')
+            if (form.value.password1 !== form.value.password2) {
+                ElMessage.error('两次密码不一致');
+                return false
+            }
+            register({
+                username: form.value.username,
+                password: form.value.password1
+            }).then(res => {
+                if (res.status) {
+                    ElMessage.success('注册成功');
+                    localStorage.setItem('loginToken', res.data.uid);
+                    localStorage.setItem('userInfo', JSON.stringify(res.data));
+                    userStore.setUserInfo({
+                        uid: res.data.uid,
+                        username: res.data.username,
+                        type: res.data.type,
+                        img: res.data.img,
+                    })
+                    router.push('/');
+                } else {
+                    ElMessage.error('注册失败');
+                }
+            })
         } else {
-            console.log('注册失败')
+            ElMessage.error('请填写完整信息');
             return false
         }
     })

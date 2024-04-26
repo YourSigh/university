@@ -18,10 +18,13 @@
                 <div></div>
                 <el-dropdown class="user-name" trigger="click" @command="handleCommand">
                     <span class="el-dropdown-link">
-                        <div>测试名字</div>
-                        <el-icon><ArrowDown /></el-icon>
+                        <div>{{ username }}</div>
+                        <el-icon>
+                            <ArrowDown />
+                        </el-icon>
                     </span>
                     <template #dropdown>
+                        <div class="uid">ID:{{ userStore.userInfo.uid }}</div>
                         <el-dropdown-menu>
                             <el-dropdown-item command="setting">个人中心</el-dropdown-item>
                             <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
@@ -35,19 +38,22 @@
 
 <script setup lang="ts">
 import * as colorUtils from '@/util/color';
-import { useTagsStore } from '@/store';
+import { useTagsStore, useUserStore } from '@/store';
 import { computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
-const store = useTagsStore();
+const tagStore = useTagsStore();
+const userStore = useUserStore();
 
-const scalingMenu = computed(() => store.collapse);
+const scalingMenu = computed(() => tagStore.collapse);
 
 const scaling = () => {
-    store.handleCollapse(!scalingMenu.value);
+    tagStore.handleCollapse(!scalingMenu.value);
 }
+
+const username = ref(userStore.userInfo.username || '游客');
 
 const color = ref(localStorage.getItem('systemColor') || '#409EFF');
 
@@ -120,6 +126,7 @@ const handleCommand = (command: string) => {
         display: flex;
         align-items: center;
         justify-content: center;
+
         .header-color {
             margin-right: 10px;
         }
@@ -132,15 +139,24 @@ const handleCommand = (command: string) => {
             .user-name {
                 margin-right: 10px;
                 color: var(--font-color);
+
                 .el-dropdown-link {
                     display: flex;
                     align-items: center;
+
                     .el-icon {
                         margin-left: 5px;
                     }
                 }
+
             }
         }
     }
+}
+
+.uid {
+    padding: 10px;
+    text-align: center;
+    font-size: var(--el-font-size-base);
 }
 </style>
