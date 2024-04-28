@@ -16,19 +16,33 @@
 </template>
 
 <script setup lang="ts">
-import menuData from '@/views/menu/util/menuData'
-import { computed } from 'vue'
+import defaultData from '@/views/menu/util/menuData'
+import { computed, ref, onBeforeMount } from 'vue'
 import router from '@/router';
-import { useTagsStore, useUserStore } from '@/store/index';
+import { useTagsStore, useUserStore, useAuthorityStore } from '@/store/index';
 import {
     Setting,
 } from '@element-plus/icons-vue';
-import { getUserAuthority } from '@/api/user';
+import { getUserAuthority } from '@/api/authority';
 
 const store = useTagsStore();
 const userStore = useUserStore();
-getUserAuthority({uid: userStore.userInfo.uid}).then(res => {
-    console.log(res);
+const authorityStore = useAuthorityStore();
+
+const menuData: any = ref(defaultData);
+
+onBeforeMount(() => {
+    getUserAuthority({ uid: userStore.userInfo.uid }).then(res => {
+        Object.keys(res.data.authority).forEach((item: any) => {
+            menuData.value.forEach((menu: any) => {
+                if (menu.index == '/' + item) {
+                    menu.show = res.data.authority[item];
+                }
+            })
+        })
+        menuData.value = menuData.value.filter((item: any) => item.show);
+        authorityStore.setAuthority(menuData.value);
+    })
 })
 
 const onRoutes = computed(() => router.currentRoute.value.path);
@@ -79,6 +93,7 @@ const collapse = computed(() => store.collapse);
         .setting {
             background-color: var(--system-color);
         }
+
         .setting:hover {
             background-color: var(--hover-system-color);
         }

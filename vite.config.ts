@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   plugins: [vue()],
+  base: './',
   resolve: {
     alias: {
       '@': '/src'
@@ -10,10 +11,10 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/serve': {
+      '/serve/university': {
         target: 'http://127.0.0.1:3001',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/serve/, '')
+        rewrite: (path) => path.replace(/^\/serve\/university/, '')
       }
     },
   },

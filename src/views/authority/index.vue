@@ -23,50 +23,55 @@
             </div>
         </div>
         <div class="footer">
-            <el-button type="primary">保存</el-button>
+            <el-button type="primary" @click="saveAuth">保存</el-button>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import auth from './util/auth'
+import { getUser } from '@/api/user';
+import { getUserAuthority, setUserAuthority } from '@/api/authority';
+import { ElMessage } from 'element-plus';
 
 const authData = ref(auth)
-const checkedAuth = ref([])
-const checkedData = ref([])
+const checkedAuth:any = ref([])
+const checkedData = ref('')
 const isloading = ref(false)
+const userData = ref([])
 
-const data = ref([
-    {
-        value: 1,
-        label: '学生',
-        children: [
-            {
-                value: 3,
-                label: '张三',
-            },
-            {
-                value: 4,
-                label: '李四'
-            }
-        ]
-    },
-    {
-        value: 2,
-        label: '教师',
-        children: [
-            {
-                value: 5,
-                label: '王老师'
-            },
-            {
-                value: 6,
-                label: '李老师'
-            }
-        ]
-    },
-])
+getUser({}).then(res => {
+    userData.value = res.data
+})
+
+const data = computed(() => {
+    const arr:any = [
+        {
+            value: 1,
+            label: '学生',
+            children: []
+        },
+        {
+            value: 2,
+            label: '教师',
+            children: []
+        },
+    ];
+    arr[0].children = userData.value.filter((item: any) => item.type == 'student').map((item: any) => {
+        return {
+            value: item.uid,
+            label: item.username,
+        }
+    })
+    arr[1].children = userData.value.filter((item: any) => item.type == 'teacher').map((item: any) => {
+        return {
+            value: item.uid,
+            label: item.username,
+        }
+    })
+    return arr;
+})
 
 const defaultProps = {
     children: 'children',
@@ -75,12 +80,43 @@ const defaultProps = {
 
 const changeRole = (value: any) => {
     isloading.value = true;
-    setTimeout(() => {
-        checkedData.value = value;
+    if (value == '1' || value == '2') {
+        checkedAuth.value = [];
         isloading.value = false;
-    }, 1000)
+        return;
+    }
+    getUserAuthority({uid: value}).then((res:any) => {
+        const authority = res.data.authority || {};
+        checkedAuth.value = Object.keys(authority).filter((key: any) => authority[key]);
+        isloading.value = false;
+    })
 }
 
+const saveAuth = () => {
+    if (!checkedData.value) {
+        ElMessage.error('请选择角色');
+        return;
+    }
+    isloading.value = true;
+    const authority:any = {};
+    checkedAuth.value.forEach((item: any) => {
+        authority[item] = true;
+    })
+    let type = 0;
+    if (checkedData.value == '1') {
+        type = 1;
+    } else if (checkedData.value == '2') {
+        type = 2;
+    }
+    setUserAuthority({uid: checkedData.value, authority, type}).then((res) => {
+        if (res.status) {
+            ElMessage.success('保存成功');
+        } else {
+            ElMessage.error('保存失败');
+        }
+        isloading.value = false;
+    })
+}
 </script>
 
 <style scoped lang="scss">
@@ -117,6 +153,11 @@ const changeRole = (value: any) => {
                 font-size: 16px;
                 font-weight: bold;
                 margin-bottom: 10px;
+            }
+            :deep(.el-checkbox-group) {
+                width: 100%;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
             }
         }
     }

@@ -91,10 +91,13 @@ const reset = () => {
             align-items: center;
             justify-content: center;
             .el-form-item__label {
-                width: 80px;
+                width: 60px;
             }
             .el-form-item__content {
                 justify-content: center;
+            }
+            .el-input {
+                width: 150px;
             }
         }
     }

@@ -108,6 +108,9 @@ const reset = () => {
             .el-form-item__content {
                 justify-content: center;
             }
+            .el-input {
+                width: 150px;
+            }
         }
     }
 }
