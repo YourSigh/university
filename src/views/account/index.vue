@@ -3,49 +3,58 @@
         <div class="title">账号管理</div>
         <div class="content">
             <el-table :data="tableData.slice((currentPage - 1) * pageSize, currentPage * pageSize)" style="width: 100%">
-                <el-table-column prop="date" label="日期" width="180"></el-table-column>
-                <el-table-column prop="name" label="姓名" width="180"></el-table-column>
-                <el-table-column prop="address" label="地址"></el-table-column>
+                <el-table-column prop="uid" label="UID" width="180"></el-table-column>
+                <el-table-column prop="username" label="用户名" width="180"></el-table-column>
+                <el-table-column prop="type" label="用户类型"></el-table-column>
                 <el-table-column label="操作">
                     <template #default="{ row, $index }">
-                        <el-button type="text" @click="handleDelete($index, row)">删除</el-button>
-                        <el-button type="text" @click="handleAction(row)" :disabled="row.disabled">禁用</el-button>
+                        <el-button link @click="handleDelete($index, row)" :disabled="row.type == '管理员'">删除</el-button>
+                        <el-button link @click="handleEdit(row)" :disabled="row.type == '管理员'">修改</el-button>
                     </template>
                 </el-table-column>
             </el-table>
-            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
+            <!-- <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
                 :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="pageSize"
                 layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
-            </el-pagination>
+            </el-pagination> -->
         </div>
+        <el-dialog title="修改" v-model="dialogVisible">
+            11111
+        </el-dialog>
     </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { getUser, deleteUser } from '@/api/user';
+import { ElMessage } from 'element-plus';
 
-const tableData = ref([
-    { date: '2021-09-01', name: '张三', address: '北京市朝阳区' },
-    { date: '2021-09-02', name: '李四', address: '上海市浦东新区' },
-    { date: '2021-09-03', name: '王五', address: '广州市天河区' },
-    { date: '2021-09-04', name: '赵六', address: '深圳市南山区' },
-    { date: '2021-09-05', name: '孙七', address: '杭州市西湖区' },
-    { date: '2021-09-06', name: '周八', address: '成都市锦江区' },
-    { date: '2021-09-07', name: '吴九', address: '重庆市渝中区' },
-    { date: '2021-09-08', name: '郑十', address: '武汉市洪山区' },
-    { date: '2021-09-09', name: '钱十一', address: '南京市鼓楼区' },
-    { date: '2021-09-10', name: '孙十二', address: '苏州市姑苏区' },
-])
+const tableData = ref([])
+getUser({}).then(res => {
+    tableData.value = res.data
+    tableData.value.forEach((item: any) => {
+        item.type = (() => {
+            return item.type == 'student' ? '学生' : item.type == 'teacher' ? '教师' : '管理员'
+        })()
+    })
+})
 
 const currentPage = ref(1)
 const pageSize = ref(10)
 
-const handleDelete = (index: number, _row: any) => {
-    tableData.value.splice(index, 1)
+const handleDelete = (index: number, row: any) => {
+    deleteUser({ uid: row.uid }).then(res => {
+        if (res.status) {
+            ElMessage.success('删除成功')
+            tableData.value.splice(index, 1);
+        } else {
+            ElMessage.error('删除失败')
+        }
+    })
 }
 
-const handleAction = (row: any) => {
-    row.disabled = !row.disabled
+const handleEdit = (row: any) => {
+    dialogVisible.value = true;
 }
 
 const handleSizeChange = (val: number) => {
@@ -55,6 +64,8 @@ const handleSizeChange = (val: number) => {
 const handleCurrentChange = (val: number) => {
     currentPage.value = val
 }
+
+const dialogVisible = ref(false)
 
 
 </script>

@@ -1,5 +1,4 @@
 import authority from './authority';
-import error from './error';
 import sign from './sign';
 import test from './test';
 
@@ -23,9 +22,18 @@ const routes: any = [
       },
     ]
   },
+  {
+    path: '/error',
+    name: 'error',
+    component: () => import('@/views/Error.vue')
+  },
+  {
+    path: '/noAccess',
+    name: 'noAccess',
+    component: () => import('@/views/NoAccess.vue')
+  }
 ];
 
-routes.push(...error);
 routes.push(...sign);
 routes.push(...test);
 routes[1].children?.push(...authority);

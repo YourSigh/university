@@ -34,3 +34,8 @@ export function changePassword(params: any) {
 export function changeUsername(params: any) {
   return http.post("/serve/university/changeUsername", params);
 }
+
+// 删除用户
+export function deleteUser(params: any) {
+  return http.post("/serve/university/deleteUser", params);
+}

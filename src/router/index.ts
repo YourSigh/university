@@ -24,11 +24,20 @@ router.beforeEach(async (to, from, next) => {
       }
     } else {
       if (token) {
-        // if (authorityStore.authorityList.length === 0) {
-        //   // await authorityStore.getAuthorityList();
-        //   console.log(authorityStore.authorityList);
-        // }
-        next();
+        if (to.path === '/dashboard' || to.path === '/setting' || to.path === '/error' || to.path === '/noAccess') {
+          next();
+          return;
+        }
+        if (authorityStore.authority.length === 0) {
+          await authorityStore.getAuthorityList();
+        }
+        // 检查权限
+        const hasAuthority = authorityStore.authority.some((item) => item.index === to.path && item.show);
+        if (hasAuthority) {
+          next();
+        } else {
+          next({ path: '/noAccess' });
+        }
       } else {
         next({ path: '/sign' });
       }
