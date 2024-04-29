@@ -1,15 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useUserStore, useAuthorityStore } from '../store'
+import { useAuthorityStore } from '../store'
 import routes from './routes'
 
 // 创建路由实例
 const router = createRouter({
-  history: createWebHistory('/'),
+  history: createWebHistory('/university/'),
   routes,
 })
 
 // 导航守卫
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to, _from, next) => {
   const token = localStorage.getItem('loginToken');
   const authorityStore = useAuthorityStore();
 
@@ -32,7 +32,7 @@ router.beforeEach(async (to, from, next) => {
           await authorityStore.getAuthorityList();
         }
         // 检查权限
-        const hasAuthority = authorityStore.authority.some((item) => item.index === to.path && item.show);
+        const hasAuthority = authorityStore.authority.some((item:any) => item.index === to.path && item.show);
         if (hasAuthority) {
           next();
         } else {

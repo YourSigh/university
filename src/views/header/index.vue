@@ -72,7 +72,7 @@ watch(color, () => {
 const handleCommand = (command: string) => {
     if (command === 'loginout') {
         localStorage.removeItem('loginToken');
-        location.href = '/sign';
+        router.push('/sign');
     } else if (command == 'setting') {
         router.push('/setting');
     }
