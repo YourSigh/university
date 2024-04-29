@@ -19,7 +19,7 @@ export const useAuthorityStore = defineStore('authority', {
                 data.forEach((item: any) => {
                     Object.keys(res.data.authority).forEach((key: any) => {
                         if (item.index === '/' + key) {
-                            item.show = res.data[key];
+                            item.show = res.data.authority[key];
                         }
                     });
                 });
