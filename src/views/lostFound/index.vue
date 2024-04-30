@@ -53,7 +53,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { getLost, addLost, deleteLost } from '@/api/lost'
+import { getLost, addLost, deleteLost, applyLost } from '@/api/lost'
 import { useUserStore } from '@/store';
 import { ElMessage } from 'element-plus'
 
@@ -73,8 +73,18 @@ const place = ref('')
 const userInfo = userStore.userInfo
 
 const handleApply = (row: any) => {
-    row.status = '已申领'
-    row.uid = userInfo.uid
+    applyLost({
+        id: row.id,
+        uid: userInfo.uid
+    }).then(res => {
+        if (res.status) {
+            ElMessage.success('申领成功')
+            row.status = '已申领'
+            row.uid = userInfo.uid
+        } else {
+            ElMessage.error('申领失败')
+        }
+    })
 }
 
 const handlePublish = () => {

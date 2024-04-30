@@ -14,3 +14,8 @@ export function addLost(params: any) {
 export function deleteLost(params: any) {
   return http.post("/serve/university/deleteLost", params);
 }
+
+// 申领丢失物品
+export function applyLost(params: any) {
+  return http.post("/serve/university/applyLost", params);
+}

@@ -6,7 +6,7 @@
                 <div class="content-item-title">快递单号：</div>
                 <div class="content-item-content">
                     <el-input v-model="expressNumber" placeholder="请输入快递单号"></el-input>
-                    <el-button type="primary">查询</el-button>
+                    <el-button type="primary" @click="searchData">查询</el-button>
                 </div>
             </div>
             <div class="content-item">
@@ -19,10 +19,9 @@
                     <!-- 快递单号，时间，状态，快递名称，预计送达时间 -->
                     <el-table :data="tableData" style="width: 100%" stripe>
                         <el-table-column prop="id" label="快递单号" width="180"></el-table-column>
-                        <el-table-column prop="date" label="时间" width="180"></el-table-column>
                         <el-table-column prop="status" label="状态" width="180"></el-table-column>
-                        <el-table-column prop="name" label="快递名称" width="180"></el-table-column>
-                        <el-table-column prop="expectedTime" label="预计送达时间" width="180"></el-table-column>
+                        <el-table-column prop="kind" label="快递名称" width="180"></el-table-column>
+                        <el-table-column prop="time" label="预计送达时间" width="180"></el-table-column>
                     </el-table>
                 </div>
             </div>
@@ -32,20 +31,31 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { getExpress } from '@/api/express'
+import { useUserStore } from '@/store';
+import { ElMessage } from 'element-plus';
+
+const userStore = useUserStore()
 
 const expressNumber = ref('')
 
-const tableData = [
-    { id: '123456', date: '2021-09-01', status: '已签收', name: '顺丰', expectedTime: '2021-09-02' },
-    { id: '123457', date: '2021-09-02', status: '运输中', name: '圆通', expectedTime: '2021-09-03' },
-    { id: '123458', date: '2021-09-03', status: '已签收', name: '中通', expectedTime: '2021-09-04' },
-    { id: '123459', date: '2021-09-04', status: '已签收', name: '申通', expectedTime: '2021-09-05' },
-    { id: '123460', date: '2021-09-05', status: '已签收', name: '韵达', expectedTime: '2021-09-06' },
-    { id: '123461', date: '2021-09-06', status: '已签收', name: '邮政', expectedTime: '2021-09-07' },
-    { id: '123462', date: '2021-09-07', status: '已签收', name: '京东', expectedTime: '2021-09-08' },
-    { id: '123463', date: '2021-09-08', status: '已签收', name: '天猫', expectedTime: '2021-09-09' },
-    { id: '123464', date: '2021-09-09', status: '已签收', name: '淘宝', expectedTime: '2021-09-10' },
-]
+const tableData = ref([])
+
+const searchData = () => {
+    getExpress({
+        uid: userStore.userInfo.uid,
+        id: expressNumber.value,
+    }).then(res => {
+        if (res.status) {
+            ElMessage.success('查询成功');
+            tableData.value = res.data;
+        } else {
+            ElMessage.error('查询失败');
+        }
+    })
+}
+
+searchData();
 
 
 
