@@ -36,6 +36,9 @@
                         <el-option label="教师" value="teacher"></el-option>
                     </el-select>
                 </el-form-item>
+                <el-form-item label="班级" props="class" v-if="formData.type == 'student'">
+                    <el-input v-model.number="formData.class" type="number"></el-input>
+                </el-form-item>
             </el-form>
             <template #footer>
                 <el-button @click="dialogVisible = false">取 消</el-button>
@@ -88,7 +91,8 @@ const formData = ref({
     uid: '',
     username: '',
     password: '',
-    type: ''
+    type: '',
+    class: 20130400
 })
 
 const rules = {
@@ -100,6 +104,9 @@ const rules = {
     ],
     type: [
         { required: true, message: '请选择用户类型', trigger: 'blur' }
+    ],
+    class: [
+        { required: true, message: '请输入班级', trigger: 'blur' }
     ]
 }
 
