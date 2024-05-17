@@ -4,19 +4,19 @@
         <div class="content">
             <div class="name">
                 <div class="label">课程名称：</div>
-                <div class="value">语文</div>
+                <div class="value">{{ detailData.name }}</div>
             </div>
             <div class="teacher">
                 <div class="label">任课老师：</div>
-                <div class="value">张三</div>
+                <div class="value">{{ detailData.teacher }}</div>
             </div>
             <div class="classroom">
                 <div class="label">上课地点：</div>
-                <div class="value">教室1</div>
+                <div class="value">{{ detailData.classroom }}</div>
             </div>
             <div class="time">
                 <div class="label">上课时间：</div>
-                <div class="value">星期一 8:00-9:00</div>
+                <div class="value">{{ detailData.time }}</div>
             </div>
         </div>
     </div>
@@ -24,7 +24,8 @@
 
 <script setup lang="ts">
 defineProps<{
-    isShowClassDetail: boolean
+    isShowClassDetail: boolean,
+    detailData: Record<string, any>
 }>()
 </script>
 

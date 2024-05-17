@@ -55,6 +55,7 @@ const signIn = () => {
                         username: res.data.username,
                         type: res.data.type,
                         img: res.data.img,
+                        class: res.data.class,
                     })
                     ElMessage.success('登录成功');
                     router.push('/');

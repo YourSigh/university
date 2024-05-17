@@ -5,7 +5,7 @@
             <div class="left">
                 <classComponent @changeClassDetail="changeClassDetail" :times="times" :schedule="schedule">
                 </classComponent>
-                <classDetail :isShowClassDetail="isShowClassDetail"></classDetail>
+                <classDetail :isShowClassDetail="isShowClassDetail" :detailData="detailData"></classDetail>
             </div>
             <div class="right">
                 <addClass :times="times" :clickNode="clickNode"></addClass>
@@ -21,6 +21,25 @@ import * as classInterface from './util/interface'
 import classComponent from './components/class.vue'
 import classDetail from './components/classDetail.vue'
 import addClass from './components/addClass.vue'
+import { useUserStore } from '@/store/index'
+import { getClass } from '@/api/class'
+
+const userStore = useUserStore()
+
+getClass({class: userStore.userInfo.class}).then(res => {
+    res.data.forEach((item:any) => {
+        times.value.forEach((time, index) => {
+            if (item.start === time.start) {
+                schedule.value[item.week - 1][index] = {
+                    name: item.name,
+                    teacher: item.teacher,
+                    classroom: item.classroom,
+                    time: `星期${item.week} ${time.start}-${time.end}`
+                }
+            }
+        })
+    })
+});
 
 const isSummer = computed(() => {
     const now = new Date()
@@ -34,20 +53,15 @@ const times = computed(() => {
     return isSummer.value ? time.summerTime : time.winterTime;
 })
 
-schedule.value[0][0] = {
-    name: '语文',
-    teacher: '张三',
-    classroom: '教室1',
-    time: '星期一 8:00-9:00'
-}
-
 const isShowClassDetail = ref(false)
 
 const clickNode = ref({})
+const detailData = ref({})
 
 const changeClassDetail = (isShow: boolean, i:number, j:number) => {
     isShowClassDetail.value = isShow;
     clickNode.value = {i, j}
+    detailData.value = schedule.value[i - 1][j - 1]
 }
 
 </script>

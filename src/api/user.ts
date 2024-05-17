@@ -5,6 +5,11 @@ export function getUser(params: any) {
   return http.get("/serve/university/getUser", params);
 }
 
+// 获取教师列表
+export function getTeacher(params: any) {
+  return http.get("/serve/university/getTeacher", params);
+}
+
 // 添加用户
 export function setUser(params: any) {
   return http.post("/serve/university/setUser", params);

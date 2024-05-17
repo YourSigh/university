@@ -7,6 +7,7 @@ export const useUserStore = defineStore('user', {
       username: '',
       type: '',
       img: '',
+      class: '',
     },
   }),
   actions: {
@@ -19,6 +20,7 @@ export const useUserStore = defineStore('user', {
         username: '',
         type: '',
         img: '',
+        class: '',
       };
     },
   }

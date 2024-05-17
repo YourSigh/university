@@ -67,6 +67,7 @@ const login = () => {
                         username: res.data.username,
                         type: res.data.type,
                         img: res.data.img,
+                        class: res.data.class,
                     })
                     router.push('/');
                 } else {

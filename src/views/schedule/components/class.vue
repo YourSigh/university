@@ -105,6 +105,11 @@ const handleNullClick = (i: number, j: number) => {
                 .class-item-notNull {
                     width: 100%;
                     height: 100%;
+                    div {
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
                 }
 
                 .class-item-null {
