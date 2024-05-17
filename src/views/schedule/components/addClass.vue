@@ -51,6 +51,10 @@ const props = defineProps({
     }
 })
 
+const emit = defineEmits<{
+    (event: 'addClass', value: any): void
+}>()
+
 const teacher:any = ref([])
 getTeacher({}).then(res => {
     if (res.status) {
@@ -80,7 +84,7 @@ watch(() => props.clickNode, () => {
 })
 
 const save = () => {
-    console.log(form.value)
+    emit('addClass', form.value);
 }
 
 </script>

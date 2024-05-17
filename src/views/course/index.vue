@@ -84,8 +84,8 @@ const save = () => {
         teacher: userStore.userInfo.uid,
         classroom: form.value.place,
         classes: form.value.class,
-    }).then(res => {
-        console.log(res)
+        type: 'official',
+    }).then(() => {
         form.value = {
             name: '',
             week: '',

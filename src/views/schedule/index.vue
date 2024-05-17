@@ -8,7 +8,7 @@
                 <classDetail :isShowClassDetail="isShowClassDetail" :detailData="detailData"></classDetail>
             </div>
             <div class="right">
-                <addClass :times="times" :clickNode="clickNode"></addClass>
+                <addClassComponent :times="times" :clickNode="clickNode" @add-class="addClasses"></addClassComponent>
             </div>
         </div>
     </div>
@@ -20,21 +20,27 @@ import * as time from './util/time'
 import * as classInterface from './util/interface'
 import classComponent from './components/class.vue'
 import classDetail from './components/classDetail.vue'
-import addClass from './components/addClass.vue'
+import addClassComponent from './components/addClass.vue'
 import { useUserStore } from '@/store/index'
-import { getClass } from '@/api/class'
+import { getClass, addClass, changeClass } from '@/api/class'
+import { ElMessage } from 'element-plus'
 
 const userStore = useUserStore()
 
-getClass({class: userStore.userInfo.class}).then(res => {
-    res.data.forEach((item:any) => {
+getClass({
+    class: userStore.userInfo.class,
+    userId: userStore.userInfo.uid,
+}).then(res => {
+    res.data.forEach((item: any) => {
         times.value.forEach((time, index) => {
             if (item.start === time.start) {
                 schedule.value[item.week - 1][index] = {
+                    id: item.id,
                     name: item.name,
                     teacher: item.teacher,
                     classroom: item.classroom,
-                    time: `星期${item.week} ${time.start}-${time.end}`
+                    time: `星期${item.week} ${time.start}-${time.end}`,
+                    type: item.type,
                 }
             }
         })
@@ -58,10 +64,55 @@ const isShowClassDetail = ref(false)
 const clickNode = ref({})
 const detailData = ref({})
 
-const changeClassDetail = (isShow: boolean, i:number, j:number) => {
+const changeClassDetail = (isShow: boolean, i: number, j: number) => {
     isShowClassDetail.value = isShow;
-    clickNode.value = {i, j}
+    clickNode.value = { i, j }
     detailData.value = schedule.value[i - 1][j - 1]
+}
+
+const addClasses = (data: any) => {
+    if (schedule.value[data.week - 1][data.time].name) {
+        if (schedule.value[data.week - 1][data.time].type === 'official') {
+            ElMessage.error('该时间段已有课程');
+        } else {
+            changeClass({
+                id: schedule.value[data.week - 1][data.time].id,
+                name: data.name,
+                week: data.week,
+                start: times.value[data.time].start,
+                end: times.value[data.time].end,
+                teacher: data.teacher,
+                classroom: '11101',
+                classes: data.class,
+                type: 'custom',
+                userId: userStore.userInfo.uid,
+            })
+        }
+    } else {
+        addClass({
+            name: data.name,
+            week: data.week,
+            start: times.value[data.time].start,
+            end: times.value[data.time].end,
+            teacher: data.teacher,
+            classroom: '11101',
+            classes: data.class,
+            type: 'custom',
+            userId: userStore.userInfo.uid,
+        }).then(res => {
+            if (res.status) {
+                schedule.value[data.week - 1][data.time] = {
+                    id: res.data,
+                    name: data.name,
+                    teacher: data.teacher,
+                    classroom: '11101',
+                    time: `星期${data.week} ${times.value[data.time].start}-${times.value[data.time].end}`,
+                    type: 'custom',
+                }
+            }
+
+        })
+    }
 }
 
 </script>
