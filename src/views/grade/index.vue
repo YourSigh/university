@@ -2,7 +2,7 @@
     <div class="gradeManage">
         <div class="title">成绩管理</div>
         <div class="content">
-            <div v-if="userType == 'student'">
+            <div v-if="userStore.userInfo.type == 'student'">
                 <studentGrade></studentGrade>
             </div>
             <div v-else>
@@ -13,11 +13,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import studentGrade from './component/studentGrade.vue'
 import teacherGrade from './component/teacherGrade.vue'
+import { useUserStore } from '@/store';
 
-const userType = ref('student')
+const userStore = useUserStore();
+
 </script>
 
 <style scoped lang="scss">

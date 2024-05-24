@@ -4,8 +4,8 @@
             <div class="content-item">
                 <div class="content-item-title">学生：</div>
                 <div class="content-item-content">
-                    <el-select v-model="student" placeholder="请选择学生">
-                        <el-option v-for="item in studentList" :key="item" :label="item" :value="item"></el-option>
+                    <el-select v-model="student" placeholder="请选择学生" @change="handleStudentSelect">
+                        <el-option v-for="item in studentList" :key="item.id" :label="item.username" :value="item.id"></el-option>
                     </el-select>
                 </div>
             </div>
@@ -13,7 +13,7 @@
                 <div class="content-item-title">课程：</div>
                 <div class="content-item-content">
                     <el-select v-model="course" placeholder="请选择课程">
-                        <el-option v-for="item in courseList" :key="item" :label="item" :value="item"></el-option>
+                        <el-option v-for="item in courseList" :key="item.id" :label="item.name" :value="item.id"></el-option>
                     </el-select>
                 </div>
             </div>
@@ -25,7 +25,7 @@
             </div>
             <div class="content-item">
                 <div class="content-item-content">
-                    <el-button type="primary">提交</el-button>
+                    <el-button type="primary" @click="save">提交</el-button>
                 </div>
             </div>
         </div>
@@ -34,14 +34,47 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { getStudentClass, setGrade } from '@/api/grade.ts'
+import { useUserStore } from '@/store';
+import { ElMessage } from 'element-plus';
+
+const userStore = useUserStore();
+
+const studentList:any = ref([]);
+
+getStudentClass({
+    teacherId: userStore.userInfo.uid,
+}).then(res => {
+    studentList.value = res.data;
+})
+
+const courseList:any = ref([])
+const handleStudentSelect = (val: any) => {
+    course.value = '';
+    courseList.value = studentList.value.find((i: any) => i.id == val)?.classes;
+}
 
 const student = ref('')
-const studentList = ['张三', '李四', '王五', '赵六', '孙七']
 
 const course = ref('')
-const courseList = ['语文', '数学', '英语', '物理', '化学']
 
 const grade = ref('')
+
+const save = () => {
+    setGrade({
+        name: '1',
+        student: student.value,
+        teacher: '1',
+        grade: grade.value,
+        classes: course.value,
+    }).then(res => {
+        if (res.status) {
+            ElMessage.success('添加成功');
+        } else {
+            ElMessage.error('添加失败');
+        }
+    })
+}
 
 const handleinput = (val: string) => {
     if (Number(val) > 100) {

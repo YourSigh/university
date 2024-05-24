@@ -2,7 +2,7 @@
     <div class="sign">
         <div class="content-left">
             <div class="title">欢迎使用大学校园一站式服务平台</div>
-            <ring :size="220"></ring>
+            <!-- <ring :size="200"></ring> -->
             <img src="/logo.png" alt="">
         </div>
 
@@ -122,7 +122,7 @@ const menuSelect = (index: string) => {
             width: 200px;
             height: 200px;
             display: block;
-            margin: -210px auto;
+            margin: 0px auto;
         }
     }
 
