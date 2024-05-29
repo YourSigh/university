@@ -24,7 +24,7 @@
                         </el-icon>
                     </span>
                     <template #dropdown>
-                        <div class="uid">ID:{{ userStore.userInfo.uid }}</div>
+                        <div class="uid">账号:{{ userStore.userInfo.uid }}</div>
                         <el-dropdown-menu>
                             <el-dropdown-item command="setting">个人中心</el-dropdown-item>
                             <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>

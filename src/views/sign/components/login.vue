@@ -1,8 +1,8 @@
 <template>
     <div class="login">
         <el-form :model="form" :rules="rules" ref="formRef">
-            <el-form-item label="UID" prop="uid">
-                <el-input v-model="form.uid" placeholder="请输入UID"></el-input>
+            <el-form-item label="账号" prop="uid">
+                <el-input v-model="form.uid" placeholder="请输入账号"></el-input>
             </el-form-item>
             <el-form-item label="密码" prop="password">
                 <el-input v-model="form.password" placeholder="请输入密码" type="password" show-password></el-input>
@@ -33,7 +33,7 @@ const form = ref({
 
 const rules = {
     uid: [
-        { required: true, message: '请输入UID', trigger: 'blur' }
+        { required: true, message: '请输入账号', trigger: 'blur' }
     ],
     password: [
         { required: true, message: '请输入密码', trigger: 'blur' }
