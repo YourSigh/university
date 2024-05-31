@@ -82,10 +82,24 @@ const addClasses = (data: any) => {
                 start: times.value[data.time].start,
                 end: times.value[data.time].end,
                 teacher: data.teacher,
-                classroom: '11101',
+                classroom: data.classroom,
                 classes: data.class,
                 type: 'custom',
                 userId: userStore.userInfo.uid,
+            }).then((res: any) => {
+                if (res.status) {
+                    schedule.value[data.week - 1][data.time] = {
+                        id: res.data.id,
+                        name: data.name,
+                        teacher: data.teacher,
+                        classroom: data.classroom,
+                        time: `星期${data.week} ${times.value[data.time].start}-${times.value[data.time].end}`,
+                        type: 'custom',
+                    }
+                    ElMessage.success('修改自定义课程成功！');
+                } else {
+                    ElMessage.error(res?.message);
+                }
             })
         }
     } else {
@@ -95,22 +109,22 @@ const addClasses = (data: any) => {
             start: times.value[data.time].start,
             end: times.value[data.time].end,
             teacher: data.teacher,
-            classroom: '11101',
+            classroom: data.classroom,
             classes: data.class,
             type: 'custom',
             userId: userStore.userInfo.uid,
         }).then(res => {
             if (res.status) {
                 schedule.value[data.week - 1][data.time] = {
-                    id: res.data,
+                    id: res.data.id,
                     name: data.name,
                     teacher: data.teacher,
-                    classroom: '11101',
+                    classroom: data.classroom,
                     time: `星期${data.week} ${times.value[data.time].start}-${times.value[data.time].end}`,
                     type: 'custom',
                 }
+                ElMessage.success('添加自定义课程成功！');
             }
-
         })
     }
 }

@@ -53,7 +53,7 @@ const scaling = () => {
     tagStore.handleCollapse(!scalingMenu.value);
 }
 
-const username = ref(userStore.userInfo.username || '游客');
+const username = computed(() => userStore.userInfo.username || '游客');
 
 const color = ref(localStorage.getItem('systemColor') || '#409EFF');
 

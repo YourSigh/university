@@ -2,6 +2,10 @@
     margin: 0;
     padding: 0;
     // cursor: url('../logo.png'), pointer;
+    user-select: none; /* 支持现代浏览器 */
+    -webkit-user-select: none; /* 支持 Safari */
+    -moz-user-select: none; /* 支持 Firefox */
+    -ms-user-select: none; /* 支持 Internet Explorer/Edge */
 }
 
 html,
