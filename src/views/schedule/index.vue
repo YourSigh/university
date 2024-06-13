@@ -47,7 +47,7 @@ getClass({
                 schedule.value[item.week - 1][index] = {
                     id: item.id,
                     name: item.name,
-                    teacher: item.teacher,
+                    teacher: item.teacherName,
                     classroom: item.classroom,
                     time: `${DateMap[item.week]} ${time.start}-${time.end}`,
                     type: item.type,
@@ -81,7 +81,7 @@ const changeClassDetail = (isShow: boolean, i: number, j: number) => {
 }
 
 const addClasses = (data: any) => {
-    if (!data.name || !data.week || !data.time || !data.teacher || !data.classroom || !data.class) {
+    if (!data.name || !data.week || data.time == null || !data.teacher || !data.classroom) {
         ElMessage.error('请填写完整信息');
         return;
     }
