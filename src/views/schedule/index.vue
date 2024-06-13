@@ -27,6 +27,16 @@ import { ElMessage } from 'element-plus'
 
 const userStore = useUserStore()
 
+const DateMap:any = {
+    1: '星期一',
+    2: '星期二',
+    3: '星期三',
+    4: '星期四',
+    5: '星期五',
+    6: '星期六',
+    7: '星期日',
+}
+
 getClass({
     class: userStore.userInfo.class,
     userId: userStore.userInfo.uid,
@@ -39,7 +49,7 @@ getClass({
                     name: item.name,
                     teacher: item.teacher,
                     classroom: item.classroom,
-                    time: `星期${item.week} ${time.start}-${time.end}`,
+                    time: `${DateMap[item.week]} ${time.start}-${time.end}`,
                     type: item.type,
                 }
             }
@@ -71,6 +81,10 @@ const changeClassDetail = (isShow: boolean, i: number, j: number) => {
 }
 
 const addClasses = (data: any) => {
+    if (!data.name || !data.week || !data.time || !data.teacher || !data.classroom || !data.class) {
+        ElMessage.error('请填写完整信息');
+        return;
+    }
     if (schedule.value[data.week - 1][data.time].name) {
         if (schedule.value[data.week - 1][data.time].type === 'official') {
             ElMessage.error('该时间段已有课程');

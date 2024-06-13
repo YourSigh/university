@@ -22,15 +22,11 @@
             </div>
             <div class="content-item">
                 <div class="item-title">课程地点</div>
-                <el-select v-model=form.place placeholder="请选择授课地点">
-                    <el-option v-for="i in place" :key="i" :label="i" :value="i"></el-option>
-                </el-select>
+                <el-input v-model="form.place" placeholder="请输入课程地点"></el-input>
             </div>
             <div class="content-item">
                 <div class="item-title">授课班级</div>
-                <el-select v-model="form.class" placeholder="请选择授课班级">
-                    <el-option v-for="i in classes" :key="i" :label="i" :value="i"></el-option>
-                </el-select>
+                <el-input v-model="form.class" placeholder="请输入授课班级" type="number" @input="handleinput"></el-input>
             </div>
         </div>
         <div class="footer">
@@ -44,6 +40,7 @@ import { computed, ref } from 'vue'
 import * as time from '@/views/schedule/util/time.ts'
 import { addClass } from '@/api/class.ts'
 import { useUserStore } from '@/store';
+import { ElMessage } from 'element-plus';
 
 const userStore = useUserStore();
 
@@ -65,17 +62,20 @@ const form = ref({
     class: '',
 })
 
-const place = [
-    11101,
-    11102,
-]
-
-const classes = [
-    20130405,
-    20130401,
-]
+const handleinput = (val: string) => {
+    if (Number(val) < 0) {
+        form.value.class = '0'
+    } else {
+        form.value.class = val
+    }
+}
 
 const save = () => {
+    // 必填校验
+    if (!form.value.name || !form.value.week || !form.value.time || !form.value.place || !form.value.class) {
+        ElMessage.error('请填写完整信息');
+        return;
+    }
     addClass({
         name: form.value.name,
         week: form.value.week,

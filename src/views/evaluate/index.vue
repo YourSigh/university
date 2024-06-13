@@ -78,6 +78,10 @@ const handleinput = (val: string) => {
 }
 
 const save = () => {
+    if (!teacher.value || !course.value || !score.value || !evaluate.value) {
+        ElMessage.error('请填写完整信息');
+        return;
+    }
     setEvaluate({
         teacher: teacher.value,
         student: userStore.userInfo.uid,

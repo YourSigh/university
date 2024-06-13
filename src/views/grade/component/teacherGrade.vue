@@ -61,10 +61,14 @@ const course = ref('')
 const grade = ref('')
 
 const save = () => {
+    if (!student.value || !course.value || !grade.value) {
+        ElMessage.error('请填写完整信息');
+        return;
+    }
     setGrade({
-        name: '1',
+        name: courseList.value.find((i: any) => i.id == course.value)?.name,
         student: student.value,
-        teacher: '1',
+        teacher: userStore.userInfo.username,
         grade: grade.value,
         classes: course.value,
     }).then(res => {

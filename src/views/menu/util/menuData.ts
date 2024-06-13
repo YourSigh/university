@@ -15,13 +15,13 @@ export default [
         icon: 'icon-kebiao',
         show: false,
     },
-    // 空教室预约
-    {
-        name: '空教室预约',
-        index: '/classroomManage',
-        icon: 'icon-kongjiaoshi',
-        show: false,
-    },
+    // // 空教室预约
+    // {
+    //     name: '空教室预约',
+    //     index: '/classroomManage',
+    //     icon: 'icon-kongjiaoshi',
+    //     show: false,
+    // },
     // 评价教学
     {
         name: '评价教学',
